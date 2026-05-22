@@ -26,7 +26,7 @@ const Projects = () => {
       description: t('projects.repo4_desc'),
       language: "TypeScript",
       github: "https://github.com/puyi27/CALENDAR",
-      image: "/tdff.png"
+      image: "/calendar.png"
     },
     {
       name: "CAT-LOGO",
@@ -92,11 +92,10 @@ const Projects = () => {
                   {/* Image Header */}
                   <div className="h-48 w-full relative overflow-hidden bg-ink border-b border-ember/10 flex-shrink-0">
                     {repo.image ? (
-                      <img src={repo.image} alt={repo.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                      <img src={repo.image} alt={repo.name} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-ash/5 to-transparent"></div>
                     )}
-                    <div className="absolute inset-0 bg-ink/20 mix-blend-multiply"></div>
                   </div>
 
                   <div className="p-8 flex flex-col flex-grow">
