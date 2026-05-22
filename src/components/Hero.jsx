@@ -127,11 +127,11 @@ const Hero = () => {
               </MagneticButton>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-[7vw] lg:text-[6.5rem] font-serif leading-[0.9] text-ash tracking-tighter relative z-30 whitespace-nowrap">
-              <span className="block overflow-hidden pb-2">
+            <h1 className="text-6xl sm:text-[9vw] lg:text-[8.5rem] font-serif leading-[0.85] text-ash tracking-tighter relative z-30 flex flex-col">
+              <span className="block overflow-hidden pb-4 whitespace-nowrap pr-4">
                 <StaggeredText text={t('hero.title1')} delay={0.1} />
               </span>
-              <span className="block text-ash/60 ml-8 md:ml-24 overflow-hidden pb-2 italic">
+              <span className="block text-ash/50 italic overflow-hidden pb-4 whitespace-nowrap self-end md:self-start md:pl-[25%]">
                 <StaggeredText text={t('hero.title2')} delay={0.3} />
               </span>
             </h1>
