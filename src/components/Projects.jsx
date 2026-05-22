@@ -29,6 +29,13 @@ const Projects = () => {
       image: "/statuspage.png"
     },
     {
+      name: "CALENDAR",
+      description: t('projects.repo4_desc'),
+      language: "TypeScript",
+      github: "https://github.com/puyi27/CALENDAR",
+      image: "/tdff.png"
+    },
+    {
       name: "CAT-LOGO",
       description: t('projects.repo5_desc'),
       language: "JavaScript",
