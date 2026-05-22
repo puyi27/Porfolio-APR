@@ -15,13 +15,6 @@ const Projects = () => {
       image: "/quavemind.png"
     },
     {
-      name: "FailureMap",
-      description: t('projects.repo2_desc'),
-      language: "TypeScript",
-      github: "https://github.com/puyi27/FailureMap",
-      image: "/statuspage.png"
-    },
-    {
       name: "StatusPage",
       description: t('projects.repo3_desc'),
       language: "TypeScript",
