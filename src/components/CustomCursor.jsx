@@ -3,14 +3,13 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
-  const [isHoveringProject, setIsHoveringProject] = useState(false);
   
   // Posición base
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Muelle ultratenso: casi sin lag, pero con suficiente suavizado para sentirse "pesado" como cristal
-  const springConfig = { damping: 40, stiffness: 600, mass: 0.05 };
+  // Física de inercia ULTRA-TENSA (cero sensación de lag pero orgánico)
+  const springConfig = { damping: 40, stiffness: 600, mass: 0.1 };
   const smoothX = useSpring(cursorX, springConfig);
   const smoothY = useSpring(cursorY, springConfig);
 
@@ -26,12 +25,7 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e) => {
       const target = e.target;
-      const isProject = target.closest(".project-card");
-      
-      if (isProject) {
-        setIsHoveringProject(true);
-        setIsHovering(true);
-      } else if (
+      if (
         target.tagName.toLowerCase() === "button" ||
         target.tagName.toLowerCase() === "a" ||
         target.closest("button") ||
@@ -40,10 +34,8 @@ const CustomCursor = () => {
         target.closest(".interactive")
       ) {
         setIsHovering(true);
-        setIsHoveringProject(false);
       } else {
         setIsHovering(false);
-        setIsHoveringProject(false);
       }
     };
 
@@ -59,27 +51,24 @@ const CustomCursor = () => {
 
   if (typeof window !== 'undefined' && window.innerWidth <= 768) return null;
 
-  const isHoverState = isHovering || isHoveringProject;
-
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center overflow-hidden"
+      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center shadow-lg"
       style={{
         x: smoothX,
         y: smoothY,
         translateX: "-50%",
         translateY: "-50%",
-        backdropFilter: isHoverState ? "none" : "invert(1) grayscale(1)",
-        WebkitBackdropFilter: isHoverState ? "none" : "invert(1) grayscale(1)",
       }}
       animate={{
-        width: isHoverState ? 12 : 56,
-        height: isHoverState ? 12 : 56,
-        backgroundColor: isHoverState ? "#D4AF37" : "rgba(255, 255, 255, 0.05)",
-        border: isHoverState ? "none" : "1px solid rgba(255,255,255,0.15)",
-        boxShadow: isHoverState ? "0 0 20px rgba(212,175,55,0.5)" : "none"
+        width: isHovering ? 16 : 80,
+        height: isHovering ? 16 : 80,
+        backgroundColor: isHovering ? "#D4AF37" : "transparent", // Ember solid on hover
+        border: isHovering ? "none" : "1px solid rgba(255, 255, 255, 0.2)",
+        backdropFilter: isHovering ? "none" : "invert(1) grayscale(1) blur(2px)",
+        WebkitBackdropFilter: isHovering ? "none" : "invert(1) grayscale(1) blur(2px)"
       }}
-      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+      transition={{ type: "spring", damping: 30, stiffness: 300 }}
     />
   );
 };

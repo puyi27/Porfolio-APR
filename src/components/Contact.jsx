@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import MagneticButton from "./MagneticButton";
 import { FiArrowRight } from "react-icons/fi";
 import { useLanguage } from "../context/LanguageContext";
-import { useEffect, useRef } from "react";
 
-// Fondo Animado: Rejilla Arquitectónica / Blueprint B2B
 const BlueprintGrid = () => {
   const canvasRef = useRef(null);
 
@@ -12,77 +11,74 @@ const BlueprintGrid = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    
     let animationFrameId;
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    let mouseX = -1000;
-    let mouseY = -1000;
-
+    let mouse = { x: -1000, y: -1000 };
+    
     const handleMouseMove = (e) => {
-      // Necesitamos las coordenadas relativas al canvas (sección Contacto)
       const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
     };
+    
+    window.addEventListener("mousemove", handleMouseMove);
 
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = canvas.parentElement.clientHeight;
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
     };
+    window.addEventListener("resize", resize);
+    resize();
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("resize", handleResize);
-
-    // Initial resize to match parent
-    handleResize();
-
-    const drawGrid = () => {
-      ctx.clearRect(0, 0, width, height);
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const gridSize = 50;
       
-      const gridSize = 50; 
       ctx.lineWidth = 1;
       
-      // Dibujar verticales
-      for (let x = 0; x <= width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        
-        const distToMouse = Math.abs(x - mouseX);
-        const opacity = Math.max(0.01, 0.2 - (distToMouse / 300));
-        
-        ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`; // Champagne Gold
-        ctx.stroke();
+      for(let x = 0; x < canvas.width; x += gridSize) {
+        for(let y = 0; y < canvas.height; y += gridSize) {
+          // Calculate distance to mouse
+          const dx = (x + gridSize/2) - mouse.x;
+          const dy = (y + gridSize/2) - mouse.y;
+          const distance = Math.sqrt(dx*dx + dy*dy);
+          
+          const maxDist = 300;
+          let opacity = 0.03; // Base tenuidad
+          if (distance < maxDist) {
+            opacity = 0.03 + (1 - distance/maxDist) * 0.2; // Brilla al acercarse el ratón
+          }
+          
+          ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`; // Ember color
+          
+          ctx.beginPath();
+          ctx.rect(x, y, gridSize, gridSize);
+          ctx.stroke();
+          
+          // Cruces de precisión arquitectónica
+          if (distance < maxDist - 100) {
+            ctx.beginPath();
+            ctx.moveTo(x - 2, y);
+            ctx.lineTo(x + 2, y);
+            ctx.moveTo(x, y - 2);
+            ctx.lineTo(x, y + 2);
+            ctx.stroke();
+          }
+        }
       }
-
-      // Dibujar horizontales
-      for (let y = 0; y <= height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        
-        const distToMouse = Math.abs(y - mouseY);
-        const opacity = Math.max(0.01, 0.2 - (distToMouse / 300));
-        
-        ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`; 
-        ctx.stroke();
-      }
-
-      animationFrameId = requestAnimationFrame(drawGrid);
+      
+      animationFrameId = requestAnimationFrame(draw);
     };
-
-    drawGrid();
-
+    
+    draw();
+    
     return () => {
+      window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-60 z-0 mix-blend-screen" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
 };
 
 const Contact = () => {
@@ -90,13 +86,15 @@ const Contact = () => {
 
   return (
     <section id="contacto" className="bg-transparent text-ash py-32 lg:py-48 px-6 md:px-12 relative min-h-screen flex items-center overflow-hidden">
+      
       <BlueprintGrid />
+      
       <motion.div 
         initial={{ width: 0 }}
         whileInView={{ width: "100%" }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 h-[1px] bg-ember/20"
+        className="absolute top-0 left-0 h-[1px] bg-ember/20 z-10"
       />
       
       <div className="max-w-7xl mx-auto w-full relative z-10">
@@ -107,7 +105,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-center bg-ink/30 p-8 rounded-xl backdrop-blur-sm border border-ember/5"
           >
             <span className="block font-mono text-[10px] tracking-[0.4em] uppercase text-ember mb-6">
               {t('contact.subtitle')}
@@ -141,7 +139,7 @@ const Contact = () => {
             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center justify-center lg:justify-end"
           >
-            <form className="w-full max-w-md flex flex-col gap-8 bg-ink-light/20 p-8 border border-ember/10 backdrop-blur-sm">
+            <form className="w-full max-w-md flex flex-col gap-8 bg-ink-light/40 p-8 border border-ember/10 backdrop-blur-md shadow-[0_0_30px_rgba(212,175,55,0.05)]">
               <div className="relative group">
                 <input 
                   type="text" 

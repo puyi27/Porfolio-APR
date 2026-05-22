@@ -7,7 +7,6 @@ import confetti from "canvas-confetti";
 const TerminalProfile = () => {
   const { t } = useLanguage();
   
-  // Terminal sequence that looks like a system boot
   const sequence = [
     `> system.init()`,
     `[OK] Core modules loaded...`,
@@ -30,13 +29,13 @@ const TerminalProfile = () => {
       setText(codeString.substring(0, i));
       i++;
       if (i > codeString.length) clearInterval(interval);
-    }, 20); // Fast typing
+    }, 20); 
     return () => clearInterval(interval);
   }, [codeString]);
 
   const triggerConfetti = () => {
     const end = Date.now() + 1.5 * 1000;
-    const colors = ['#D4AF37', '#ffffff', '#64748B']; // Ember, White, Ash
+    const colors = ['#D4AF37', '#ffffff', '#64748B']; 
 
     (function frame() {
       confetti({
@@ -78,57 +77,40 @@ const TerminalProfile = () => {
   );
 };
 
-// Manifiesto Técnico: Sellos de Tinta Azul Marino sobre el mármol
-const SkillsManifesto = () => {
-  const techStack = [
-    { name: "Node.js", col: "col-start-1 md:col-start-1" },
-    { name: "TypeScript", col: "col-start-2 md:col-start-3" },
-    { name: "React", col: "col-start-1 md:col-start-2 mt-8" },
-    { name: "Next.js", col: "col-start-2 md:col-start-4 mt-8" },
-    { name: "PostgreSQL", col: "col-start-1 md:col-start-1 mt-8" },
-    { name: "Docker", col: "col-start-2 md:col-start-3 mt-8" },
+const TechnicalManifesto = () => {
+  const skills = [
+    { name: "Node.js", type: "RUNTIME" },
+    { name: "TypeScript", type: "LANG" },
+    { name: "React", type: "FRAMEWORK" },
+    { name: "PostgreSQL", type: "DATABASE" },
+    { name: "Docker", type: "INFRA" },
+    { name: "Java", type: "LANG" },
+    { name: "PHP", type: "RUNTIME" },
+    { name: "TailwindCSS", type: "STYLING" },
   ];
 
   return (
-    <div className="relative w-full h-full py-8 px-6 md:px-12 bg-ink/5 border border-ink/10 flex flex-col justify-center rounded-sm overflow-hidden">
-      
-      {/* Sello Circular Giratorio */}
-      <div className="absolute -top-16 -right-16 md:-top-10 md:-right-10 w-48 h-48 border-2 border-ink/20 rounded-full flex items-center justify-center opacity-80 mix-blend-multiply pointer-events-none z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full animate-[spin_25s_linear_infinite]">
-          <path id="curve" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
-          <text className="font-mono text-[8px] uppercase tracking-[0.3em] fill-ink">
-            <textPath href="#curve">CERTIFIED TECHNICAL ARCHITECT • FULL STACK •</textPath>
-          </text>
-        </svg>
-        <span className="absolute font-serif text-3xl font-bold text-ink tracking-tighter">AP</span>
-      </div>
-
-      <div className="mb-10 border-b border-ink/20 pb-4 relative z-20">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-ink/50">Tech Specifications</span>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 gap-x-4 relative z-20">
-        {techStack.map((tech, i) => (
+    <div className="flex flex-wrap gap-4 justify-start p-4">
+      {skills.map((skill, index) => {
+        // Rotación aleatoria sutil para dar efecto de sello manual
+        const rotateValue = index % 2 === 0 ? 2 : -2;
+        return (
           <motion.div 
-            key={tech.name}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className={`${tech.col} col-span-1 md:col-span-2 flex flex-col`}
+            key={skill.name}
+            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: rotateValue }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.1, type: "spring" }}
+            className="group relative"
           >
-            {/* Efecto de "Sello de tinta" */}
-            <span 
-              className="font-serif text-2xl md:text-3xl lg:text-4xl text-ink font-bold mix-blend-multiply tracking-tighter opacity-90 hover:opacity-100 transition-opacity interactive cursor-default" 
-              style={{ textShadow: '0px 0px 1px rgba(15, 23, 42, 0.4)' }} // Navy ink shadow
-            >
-              {tech.name}
-            </span>
-            <div className="h-[1px] w-3/4 bg-ink/20 mt-1"></div>
-            <span className="font-mono text-[7px] uppercase tracking-widest text-ink/50 mt-1">v.2024</span>
+            {/* Sello de Tinta Azul Marino */}
+            <div className="bg-transparent border-2 border-[#0A1128] px-5 py-3 rounded-sm transform-gpu hover:rotate-0 hover:scale-105 transition-all duration-300 interactive cursor-pointer mix-blend-multiply opacity-80 hover:opacity-100 hover:bg-[#0A1128] hover:shadow-[0_10px_20px_rgba(10,17,40,0.2)] flex flex-col items-center">
+              <span className="block font-mono text-[8px] uppercase tracking-widest text-[#0A1128] group-hover:text-[#D4AF37] mb-1 transition-colors">{skill.type}</span>
+              <span className="block font-serif text-xl tracking-tighter text-[#0A1128] group-hover:text-white uppercase transition-colors">{skill.name}</span>
+            </div>
           </motion.div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };
@@ -179,7 +161,7 @@ const About = () => {
             </TiltCard>
           </div>
 
-          {/* Animated Code Terminal with Easter Egg */}
+          {/* Animated Code Terminal */}
           <div className="md:col-span-1 lg:col-span-2">
             <TiltCard>
               <div className="h-full bg-ink-light border border-ember/10 p-6 md:p-8 shadow-lg hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)] transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px]">
@@ -196,11 +178,14 @@ const About = () => {
             </TiltCard>
           </div>
 
-          {/* Manifiesto Técnico */}
+          {/* Manifiesto Técnico (Sellos Tipográficos) */}
           <div className="md:col-span-2 lg:col-span-2">
             <TiltCard>
-              <div className="h-full bg-ash/5 border border-ink/5 p-6 shadow-md hover:shadow-lg transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px]">
-                <SkillsManifesto />
+              <div className="h-full bg-ink-light border border-ember/10 p-6 shadow-lg hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)] transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px] overflow-hidden">
+                <div className="mb-4 ml-4">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-ash/40">Technical Manifesto</span>
+                </div>
+                <TechnicalManifesto />
               </div>
             </TiltCard>
           </div>
