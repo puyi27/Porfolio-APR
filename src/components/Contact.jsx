@@ -142,33 +142,33 @@ const Contact = () => {
             className="flex items-center justify-center lg:justify-end relative"
           >
             {/* Efecto blur de fondo para el form sobre la rejilla */}
-            <div className="absolute inset-0 max-w-md bg-ink-light/40 backdrop-blur-md rounded-xl z-0 pointer-events-none border border-ember/10"></div>
+            <div className="absolute inset-0 max-w-md bg-white/40 backdrop-blur-xl rounded-xl z-0 pointer-events-none border border-ash/10 shadow-lg"></div>
             
             <form className="w-full max-w-md flex flex-col gap-8 p-8 relative z-10">
               <div className="relative group">
                 <input 
                   type="text" 
                   placeholder={t('contact.name')} 
-                  className="w-full bg-transparent border-b border-ash/20 py-4 px-2 text-ash placeholder:text-ash/30 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase interactive"
+                  className="w-full bg-transparent border-b border-ash/40 py-4 px-2 text-ash font-medium placeholder:text-ash/60 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase interactive"
                 />
               </div>
               <div className="relative group">
                 <input 
                   type="email" 
                   placeholder={t('contact.email')} 
-                  className="w-full bg-transparent border-b border-ash/20 py-4 px-2 text-ash placeholder:text-ash/30 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase interactive"
+                  className="w-full bg-transparent border-b border-ash/40 py-4 px-2 text-ash font-medium placeholder:text-ash/60 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase interactive"
                 />
               </div>
               <div className="relative group">
                 <textarea 
                   placeholder={t('contact.message')} 
                   rows={4}
-                  className="w-full bg-transparent border-b border-ash/20 py-4 px-2 text-ash placeholder:text-ash/30 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase resize-none interactive"
+                  className="w-full bg-transparent border-b border-ash/40 py-4 px-2 text-ash font-medium placeholder:text-ash/60 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase resize-none interactive"
                 />
               </div>
               
               <MagneticButton className="mt-4">
-                <button type="button" className="w-full py-4 border border-ember/40 text-ember font-mono text-xs uppercase tracking-[0.3em] hover:bg-ember hover:text-ink transition-colors duration-500 interactive">
+                <button type="button" className="w-full py-4 bg-ash text-ink font-mono text-xs uppercase tracking-[0.3em] hover:bg-ember hover:text-ink transition-colors duration-500 interactive shadow-md">
                   {t('contact.send')}
                 </button>
               </MagneticButton>
