@@ -1,152 +1,51 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const AmbientLight = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext("2d", { alpha: true });
-    let animationFrameId;
-    let particles = [];
-    
-    // Configuración adaptativa
-    const isMobile = window.innerWidth < 768;
-    const numParticles = isMobile ? 30 : 70; // Menos partículas en móvil para rendimiento
-    const maxDistance = isMobile ? 100 : 180; 
-    const mouseRadius = 250; 
-
-    let mouse = { x: null, y: null };
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
-    };
-
-    const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.4; // Movimiento ultra lento
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.baseRadius = Math.random() * 1.2 + 0.5;
-        this.radius = this.baseRadius;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-        if (mouse.x != null && mouse.y != null) {
-          let dx = mouse.x - this.x;
-          let dy = mouse.y - this.y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouseRadius) {
-            const forceDirectionX = dx / distance;
-            const forceDirectionY = dy / distance;
-            const force = (mouseRadius - distance) / mouseRadius;
-            
-            // Repulsión magnética sutil
-            this.x -= forceDirectionX * force * 0.5;
-            this.y -= forceDirectionY * force * 0.5;
-          }
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(212, 175, 55, 0.4)"; // Color Ember (Oro pálido)
-        ctx.fill();
-      }
-    }
-
-    const initParticles = () => {
-      particles = [];
-      for (let i = 0; i < numParticles; i++) {
-        particles.push(new Particle());
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-
-        for (let j = i; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < maxDistance) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 * (1 - distance / maxDistance)})`;
-            ctx.lineWidth = 0.6;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-        
-        if (mouse.x != null && mouse.y != null) {
-          const dx = particles[i].x - mouse.x;
-          const dy = particles[i].y - mouse.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < maxDistance * 1.5) {
-             ctx.beginPath();
-             ctx.strokeStyle = `rgba(212, 175, 55, ${0.08 * (1 - distance / (maxDistance * 1.5))})`;
-             ctx.lineWidth = 0.5;
-             ctx.moveTo(particles[i].x, particles[i].y);
-             ctx.lineTo(mouse.x, mouse.y);
-             ctx.stroke();
-          }
-        }
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("mouseleave", handleMouseLeave);
-    
-    handleResize();
-    animate();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
   return (
-    <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
-      {/* Canvas animado */}
-      <canvas
-        ref={canvasRef}
-        className="block w-full h-full opacity-70"
-      />
-      {/* Capa de viñeteado para dar profundidad e integrar con el fondo */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#030712_100%)] opacity-80 pointer-events-none"></div>
-    </div>
+    <>
+      <style>
+        {`
+          @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(4vw, -4vh) scale(1.1); }
+            66% { transform: translate(-3vw, 3vh) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+          }
+          .animate-blob {
+            animation: blob 20s infinite alternate ease-in-out;
+          }
+          .animation-delay-2000 {
+            animation-delay: -5s;
+          }
+          .animation-delay-4000 {
+            animation-delay: -10s;
+          }
+        `}
+      </style>
+      <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden bg-ink">
+        
+        {/* Capa de ruido (grain) para textura editorial premium */}
+        <div 
+          className="absolute inset-0 opacity-[0.06] z-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+          }}
+        ></div>
+
+        {/* Orbes de luz desenfocados (Efecto Aurora) */}
+        {/* Orbe 1: Ember/Oro sutil */}
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] min-w-[500px] min-h-[500px] rounded-full bg-[#d4af37] opacity-[0.05] blur-[120px] animate-blob"></div>
+        
+        {/* Orbe 2: Navy / Azul profundo */}
+        <div className="absolute top-[20%] right-[-10%] w-[45vw] h-[45vw] min-w-[400px] min-h-[400px] rounded-full bg-[#0a192f] opacity-[0.5] blur-[150px] animate-blob animation-delay-2000"></div>
+        
+        {/* Orbe 3: Gris pálido/Plateado */}
+        <div className="absolute bottom-[-10%] left-[10%] w-[60vw] h-[60vw] min-w-[600px] min-h-[600px] rounded-full bg-[#cbd5e1] opacity-[0.03] blur-[140px] animate-blob animation-delay-4000"></div>
+
+        {/* Viñeteado para integrar y no distraer */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#030712_100%)] opacity-80 z-10 pointer-events-none"></div>
+      </div>
+    </>
   );
 };
 
