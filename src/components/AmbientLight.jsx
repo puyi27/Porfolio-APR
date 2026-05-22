@@ -26,6 +26,7 @@ const AmbientLight = () => {
       precision highp float;
       uniform vec2 u_resolution;
       uniform float u_time;
+      uniform vec2 u_mouse; // Variable para la posición del ratón
 
       // Función de ruido procedural
       float random(vec2 st) {
@@ -59,6 +60,19 @@ const AmbientLight = () => {
           vec2 st = gl_FragCoord.xy / u_resolution.xy;
           st.x *= u_resolution.x / u_resolution.y;
           
+          // --- INTERACCIÓN CON EL RATÓN ---
+          vec2 mouse = u_mouse / u_resolution.xy;
+          mouse.x *= u_resolution.x / u_resolution.y;
+
+          float dist = distance(st, mouse);
+          // Radio de influencia (0.3) e intensidad de la distorsión
+          float interaction = smoothstep(0.3, 0.0, dist);
+          
+          // Desplazar las coordenadas alejándolas del ratón (curvatura)
+          vec2 dir = normalize(st - mouse + 0.0001);
+          st += dir * interaction * 0.04; 
+          // ---------------------------------
+
           st *= 2.0; // Escala más amplia
 
           // Domain Warping hiper-optimizado (solo 3 llamadas fbm en total)
@@ -125,6 +139,7 @@ const AmbientLight = () => {
       uniformLocations: {
         resolution: gl.getUniformLocation(shaderProgram, "u_resolution"),
         time: gl.getUniformLocation(shaderProgram, "u_time"),
+        mouse: gl.getUniformLocation(shaderProgram, "u_mouse"),
       },
     };
 
@@ -142,6 +157,16 @@ const AmbientLight = () => {
 
     let animationFrameId;
     let startTime = Date.now();
+    
+    // Variables para el movimiento del ratón
+    let mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let targetMousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+    const handleMouseMove = (e) => {
+      targetMousePos.x = e.clientX;
+      targetMousePos.y = window.innerHeight - e.clientY; // Invertir Y para WebGL
+    };
+    window.addEventListener("mousemove", handleMouseMove);
 
     const render = () => {
       // Rendimiento: Renderizar al 50% de la resolución del dispositivo.
@@ -163,7 +188,12 @@ const AmbientLight = () => {
       gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, 2, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 
+      // Lerp (suavizado) del ratón
+      mousePos.x += (targetMousePos.x - mousePos.x) * 0.05;
+      mousePos.y += (targetMousePos.y - mousePos.y) * 0.05;
+
       gl.uniform2f(programInfo.uniformLocations.resolution, canvas.width, canvas.height);
+      gl.uniform2f(programInfo.uniformLocations.mouse, mousePos.x * dpr, mousePos.y * dpr);
       // Dividimos el tiempo para que el mármol se mueva MUY lentamente (dinámica sutil)
       gl.uniform1f(programInfo.uniformLocations.time, (Date.now() - startTime) / 3000.0);
 
@@ -176,6 +206,7 @@ const AmbientLight = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
