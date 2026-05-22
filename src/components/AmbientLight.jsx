@@ -84,9 +84,9 @@ const AmbientLight = () => {
 
           float f = fbm(st + q * 1.5 + 0.01 * u_time);
 
-          // Paleta ultra minimalista (Casi todo blanco)
-          vec3 bg = vec3(1.0, 1.0, 1.0); // Blanco puro
-          vec3 grey = vec3(0.97, 0.98, 0.99); // Gris nube hiper sutil
+          // Paleta con más contraste para que el mármol se note sin necesidad de ruido artificial
+          vec3 bg = vec3(0.96, 0.97, 0.98); // Off-white/Gris perlado
+          vec3 grey = vec3(0.85, 0.87, 0.90); // Gris más oscuro para las vetas base
           vec3 gold = vec3(0.85, 0.72, 0.35); // Oro
           vec3 navy = vec3(0.1, 0.2, 0.35); // Azul suave
 
@@ -94,13 +94,12 @@ const AmbientLight = () => {
           vec3 color = mix(bg, grey, f);
 
           // Veta dorada: Hilo súper fino (Hairline)
-          // Usamos una diferencia ínfima (0.005) para que la línea sea de un píxel de grosor
-          float goldVein = smoothstep(0.495, 0.50, f) - smoothstep(0.50, 0.505, f);
-          color = mix(color, gold, goldVein * 0.25); // Baja opacidad para que no distraiga
+          float goldVein = smoothstep(0.49, 0.50, f) - smoothstep(0.50, 0.51, f);
+          color = mix(color, gold, goldVein * 0.4); // Más visible
 
           // Veta navy cruzada: Hilo súper fino
-          float navyVein = smoothstep(0.395, 0.40, q.x) - smoothstep(0.40, 0.405, q.x);
-          color = mix(color, navy, navyVein * 0.1); // Casi imperceptible
+          float navyVein = smoothstep(0.39, 0.40, q.x) - smoothstep(0.40, 0.41, q.x);
+          color = mix(color, navy, navyVein * 0.2); // Más visible
 
           gl_FragColor = vec4(color, 1.0);
       }
@@ -170,9 +169,6 @@ const AmbientLight = () => {
     window.addEventListener("mousemove", handleMouseMove);
 
     const render = () => {
-      // Rendimiento: Renderizar al 50% de la resolución del dispositivo.
-      // Al ser mármol suavizado, el escalado CSS lo difumina perfectamente, 
-      // multiplicando los FPS x4 en dispositivos de alta densidad (Retina).
       const dpr = 0.5; 
       const displayWidth = Math.floor(window.innerWidth * dpr);
       const displayHeight = Math.floor(window.innerHeight * dpr);
@@ -189,13 +185,11 @@ const AmbientLight = () => {
       gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, 2, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 
-      // Lerp (suavizado) del ratón
       mousePos.x += (targetMousePos.x - mousePos.x) * 0.05;
       mousePos.y += (targetMousePos.y - mousePos.y) * 0.05;
 
       gl.uniform2f(programInfo.uniformLocations.resolution, canvas.width, canvas.height);
       gl.uniform2f(programInfo.uniformLocations.mouse, mousePos.x * dpr, mousePos.y * dpr);
-      // Dividimos el tiempo para que el mármol se mueva MUY lentamente (dinámica sutil)
       gl.uniform1f(programInfo.uniformLocations.time, (Date.now() - startTime) / 3000.0);
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -213,18 +207,10 @@ const AmbientLight = () => {
 
   return (
     <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden bg-ink">
-      {/* Componente dinámico de Mármol (Shader WebGL) */}
       <canvas
         ref={canvasRef}
-        className="block w-full h-full opacity-80"
+        className="block w-full h-full opacity-100"
       />
-      {/* Filtro fotográfico (ruido DESATURADO) para darle textura física sin colores */}
-      <div 
-        className="absolute inset-0 opacity-[0.25] mix-blend-multiply pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
-      ></div>
     </div>
   );
 };
