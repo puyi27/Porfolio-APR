@@ -5,33 +5,44 @@ const AmbientLight = () => {
     <>
       <style>
         {`
-          @keyframes driftMarble {
-            0% { transform: scale(1.05) translate(0%, 0%) rotate(0deg); }
-            50% { transform: scale(1.15) translate(-1%, 1%) rotate(0.5deg); }
-            100% { transform: scale(1.05) translate(1%, -1%) rotate(-0.5deg); }
+          @keyframes tide {
+            0% { transform: scale(1.05) translate(0%, 0%); }
+            50% { transform: scale(1.1) translate(-1.5%, 1.5%); }
+            100% { transform: scale(1.05) translate(1%, -1%); }
           }
-          .animate-marble {
-            animation: driftMarble 45s ease-in-out infinite alternate;
+          .animate-tide {
+            animation: tide 40s ease-in-out infinite alternate;
           }
         `}
       </style>
       <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden bg-ink">
         
-        {/* Capa de textura Mármol puro */}
+        {/* Filtro SVG Mágico: Distorsión de Líquido / Marea */}
+        <svg className="hidden">
+          <filter id="liquidTide">
+            <feTurbulence type="fractalNoise" baseFrequency="0.003 0.005" numOctaves="3" result="noise">
+              <animate attributeName="baseFrequency" values="0.003 0.005; 0.005 0.003; 0.003 0.005" dur="30s" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+
+        {/* Imagen de fondo con la distorsión líquida (Marea) */}
+        {/* Usamos el filtro SVG para deformar la imagen de mármol como si fuera líquido */}
         <div 
-          className="absolute inset-[-10%] w-[120%] h-[120%] animate-marble opacity-[0.7]"
+          className="absolute inset-[-10%] w-[120%] h-[120%] animate-tide opacity-[0.85] mix-blend-multiply"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.008' numOctaves='5' result='n'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.85 0 0 0 0 0.88 0 0 0 0 0.95 0 0 0 4.5 -1.8' in='n' result='c'/%3E%3CfeGaussianBlur stdDeviation='1.5' in='c' result='b'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23F8F9FA'/%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("/marble-bg.jpg")`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            filter: 'url(#liquidTide)'
           }}
         ></div>
 
-        {/* Ligeros toques de color Oro (Ember) y Navy difuminados para enriquecer el mármol */}
-        <div className="absolute top-[5%] left-[10%] w-[40vw] h-[40vw] rounded-full bg-[#D4AF37] opacity-[0.03] blur-[100px] mix-blend-multiply"></div>
-        <div className="absolute bottom-[5%] right-[10%] w-[50vw] h-[50vw] rounded-full bg-[#0A192F] opacity-[0.04] blur-[120px] mix-blend-multiply"></div>
-        
-        {/* Filtro extra de grano fotográfico finísimo para darle realismo a la piedra */}
+        {/* Fallback de color por si la imagen tarda en cargar */}
+        <div className="absolute inset-0 bg-ink -z-10"></div>
+
+        {/* Capa de ruido fotográfico finísimo para integrar colores y dar textura real */}
         <div 
           className="absolute inset-0 opacity-[0.25] mix-blend-multiply pointer-events-none"
           style={{
