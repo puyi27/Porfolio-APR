@@ -1,14 +1,24 @@
-import { motion } from "framer-motion";
+import React from "react";
 
 const MarqueeDivider = ({ text }) => {
   const content = `${text} • ${text} • ${text} • ${text} • `;
   
   return (
     <section className="py-24 bg-transparent overflow-hidden flex items-center">
-      <motion.div 
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+      <style>
+        {`
+          @keyframes infinite-scroll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+        `}
+      </style>
+      <div 
         className="flex whitespace-nowrap w-max"
+        style={{
+          animation: "infinite-scroll 40s linear infinite",
+          willChange: "transform"
+        }}
       >
         <div className="flex">
           <h2 
@@ -32,7 +42,7 @@ const MarqueeDivider = ({ text }) => {
             {content}
           </h2>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
