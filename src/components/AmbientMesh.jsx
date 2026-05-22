@@ -23,7 +23,7 @@ const AmbientMesh = () => {
           scale: [1, 1.3, 1] 
         }}
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-[#0A192F]/10 mix-blend-multiply filter blur-[140px]"
+        className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-[#1E3A8A]/10 mix-blend-multiply filter blur-[140px]"
       />
 
       {/* Orb de transición suave (Center) */}
