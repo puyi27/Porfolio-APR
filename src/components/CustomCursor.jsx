@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringProject, setIsHoveringProject] = useState(false);
   
-  // Posición base instántanea (Zero-Lag) directamente atada a framer-motion
+  // Posición base
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
+
+  // Muelle ultratenso: casi sin lag, pero con suficiente suavizado para sentirse "pesado" como cristal
+  const springConfig = { damping: 40, stiffness: 600, mass: 0.05 };
+  const smoothX = useSpring(cursorX, springConfig);
+  const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
     if (window.innerWidth > 768) {
@@ -15,7 +20,6 @@ const CustomCursor = () => {
     }
 
     const updateMousePosition = (e) => {
-      // Directamente al DOM sin físicas para latencia CERO
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
     };
@@ -55,34 +59,28 @@ const CustomCursor = () => {
 
   if (typeof window !== 'undefined' && window.innerWidth <= 768) return null;
 
+  const isHoverState = isHovering || isHoveringProject;
+
   return (
     <motion.div
       className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center overflow-hidden"
       style={{
-        x: cursorX,
-        y: cursorY,
+        x: smoothX,
+        y: smoothY,
         translateX: "-50%",
         translateY: "-50%",
+        backdropFilter: isHoverState ? "none" : "invert(1) grayscale(1)",
+        WebkitBackdropFilter: isHoverState ? "none" : "invert(1) grayscale(1)",
       }}
-      // Animaciones de estado (tamaño y color) con físicas tensas y rápidas
       animate={{
-        width: isHoveringProject ? 80 : (isHovering ? 48 : 32),
-        height: isHoveringProject ? 80 : (isHovering ? 48 : 32),
-        backgroundColor: isHoveringProject ? "rgba(212, 175, 55, 1)" : (isHovering ? "rgba(212, 175, 55, 0.2)" : "rgba(255, 255, 255, 0.1)"),
-        backdropFilter: isHoveringProject ? "none" : "invert(1) grayscale(1) blur(1px)",
-        WebkitBackdropFilter: isHoveringProject ? "none" : "invert(1) grayscale(1) blur(1px)",
-        border: isHoveringProject ? "none" : (isHovering ? "1px solid rgba(212, 175, 55, 0.8)" : "1px solid rgba(100, 116, 139, 0.3)")
+        width: isHoverState ? 12 : 56,
+        height: isHoverState ? 12 : 56,
+        backgroundColor: isHoverState ? "#D4AF37" : "rgba(255, 255, 255, 0.05)",
+        border: isHoverState ? "none" : "1px solid rgba(255,255,255,0.15)",
+        boxShadow: isHoverState ? "0 0 20px rgba(212,175,55,0.5)" : "none"
       }}
-      transition={{ type: "spring", damping: 25, stiffness: 400, mass: 0.2 }}
-    >
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHoveringProject ? 1 : 0 }}
-        className="text-[10px] text-ink font-mono tracking-widest font-bold"
-      >
-        VIEW
-      </motion.div>
-    </motion.div>
+      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+    />
   );
 };
 
