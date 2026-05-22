@@ -51,8 +51,11 @@ const Header = () => {
               <a
                 href="#inicio"
                 onClick={(e) => handleNavClick(e, "#inicio")}
-                className="flex items-center group cursor-none"
+                className="flex items-center gap-3 group cursor-none"
               >
+                <div className="w-8 h-8 rounded-full overflow-hidden border border-ember/20 group-hover:border-ember transition-colors duration-500 shadow-sm">
+                  <img src="/profile.jpeg" alt="Ángel Postigo" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" />
+                </div>
                 <span className="font-serif text-xl tracking-tight text-ash group-hover:text-ember transition-colors duration-500">
                   Ángel Postigo.
                 </span>
