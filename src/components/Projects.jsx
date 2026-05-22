@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useId } from "react";
+import { useState, useId, useRef, useEffect } from "react";
 import TiltCard from "./TiltCard";
 import { FiArrowUpRight } from "react-icons/fi";
 import { useLanguage } from "../context/LanguageContext";
@@ -7,7 +7,7 @@ import { useLanguage } from "../context/LanguageContext";
 // Componente Interno para la Imagen Líquida
 const LiquidImage = ({ src, alt }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const id = useId(); // Para evitar conflictos entre múltiples SVG filters
+  const id = useId(); 
   
   return (
     <div 
@@ -21,21 +21,16 @@ const LiquidImage = ({ src, alt }) => {
             <animate attributeName="baseFrequency" values="0.015;0.025;0.015" dur="8s" repeatCount="indefinite" />
           </feTurbulence>
           <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G">
-            {/* SMIL Animation para hacer una transición suave del hover */}
             <animate 
               attributeName="scale" 
               values={isHovered ? "0;15" : "15;0"} 
               dur="0.6s" 
               fill="freeze" 
-              begin={isHovered ? "indefinite" : "0s"} // Truco para disparar al render
+              begin={isHovered ? "indefinite" : "0s"} 
             />
           </feDisplacementMap>
         </filter>
       </svg>
-      {/* 
-        Si hay un src renderizamos la imagen con el filtro.
-        La transición scale-110 de CSS sigue funcionando.
-      */}
       {src ? (
         <img 
           src={src} 
@@ -52,6 +47,7 @@ const LiquidImage = ({ src, alt }) => {
 
 const Projects = () => {
   const { t } = useLanguage();
+  const scrollRef = useRef(null);
 
   const REPOS = [
     {
@@ -84,7 +80,98 @@ const Projects = () => {
     }
   ];
 
-  const CAROUSEL_ITEMS = [...REPOS, ...REPOS];
+  // Cuadruplicamos los items para asegurar un scroll infinito fluido incluso en pantallas ultra anchas
+  const CAROUSEL_ITEMS = [...REPOS, ...REPOS, ...REPOS, ...REPOS];
+
+  useEffect(() => {
+    let animationId;
+    let isInteracting = false;
+    let scrollPos = 0;
+    
+    const slider = scrollRef.current;
+    if(!slider) return;
+
+    const autoScroll = () => {
+      // Si el usuario no está interactuando (táctil o click), avanzamos automáticamente
+      if(!isInteracting) {
+         scrollPos += 0.8; // Velocidad del scroll automático
+         
+         // Si llegamos a la mitad del contenido clonado, volvemos al principio sin que se note
+         if(scrollPos >= slider.scrollWidth / 2) {
+            scrollPos = 0;
+         }
+         slider.scrollLeft = scrollPos;
+      } else {
+         // Si está interactuando, sincronizamos nuestra posición interna con su scroll nativo
+         scrollPos = slider.scrollLeft;
+      }
+      animationId = requestAnimationFrame(autoScroll);
+    };
+    
+    autoScroll();
+    
+    const handleInteractStart = () => isInteracting = true;
+    const handleInteractEnd = () => isInteracting = false;
+    
+    // Listeners para touch (móvil) y rueda del ratón nativa
+    slider.addEventListener('touchstart', handleInteractStart, { passive: true });
+    slider.addEventListener('touchend', handleInteractEnd);
+    
+    let wheelTimeout;
+    const handleWheel = () => {
+       isInteracting = true;
+       clearTimeout(wheelTimeout);
+       wheelTimeout = setTimeout(handleInteractEnd, 150);
+    };
+    slider.addEventListener('wheel', handleWheel, { passive: true });
+
+    // Lógica para drag nativo con ratón (click and drag) en escritorio
+    let isDown = false;
+    let startX;
+    let startScrollLeft;
+
+    const onMouseDown = (e) => {
+      isDown = true;
+      isInteracting = true;
+      slider.style.cursor = 'grabbing';
+      startX = e.pageX - slider.offsetLeft;
+      startScrollLeft = slider.scrollLeft;
+    };
+    const onMouseLeave = () => {
+      isDown = false;
+      isInteracting = false;
+      slider.style.cursor = 'grab';
+    };
+    const onMouseUp = () => {
+      isDown = false;
+      isInteracting = false;
+      slider.style.cursor = 'grab';
+    };
+    const onMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5; // Multiplicador de velocidad de arrastre
+      slider.scrollLeft = startScrollLeft - walk;
+    };
+
+    slider.addEventListener('mousedown', onMouseDown);
+    slider.addEventListener('mouseleave', onMouseLeave);
+    slider.addEventListener('mouseup', onMouseUp);
+    slider.addEventListener('mousemove', onMouseMove);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      slider.removeEventListener('touchstart', handleInteractStart);
+      slider.removeEventListener('touchend', handleInteractEnd);
+      slider.removeEventListener('wheel', handleWheel);
+      
+      slider.removeEventListener('mousedown', onMouseDown);
+      slider.removeEventListener('mouseleave', onMouseLeave);
+      slider.removeEventListener('mouseup', onMouseUp);
+      slider.removeEventListener('mousemove', onMouseMove);
+    }
+  }, []);
 
   return (
     <section id="proyectos" className="relative py-32 lg:py-48 bg-transparent text-ash overflow-hidden">
@@ -105,35 +192,31 @@ const Projects = () => {
         </motion.div>
       </div>
 
-      {/* Contenedor del Carrusel Infinito */}
-      <div className="relative w-full overflow-hidden flex cursor-grab active:cursor-grabbing interactive">
+      {/* Contenedor del Carrusel Infinito Nativo */}
+      <div className="relative w-full overflow-hidden interactive group">
         
         {/* Gradientes laterales */}
         <div className="absolute top-0 left-0 bottom-0 w-16 md:w-48 bg-gradient-to-r from-ink to-transparent z-10 pointer-events-none"></div>
         <div className="absolute top-0 right-0 bottom-0 w-16 md:w-48 bg-gradient-to-l from-ink to-transparent z-10 pointer-events-none"></div>
 
-        <motion.div 
-          className="flex w-max py-12"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 40,
-              ease: "linear",
-            },
-          }}
-          whileHover={{ animationPlayState: "paused" }} 
+        {/* Scroll Container nativo. Ocultamos la barra de scroll y permitimos rebosamiento horizontal */}
+        <div 
+          ref={scrollRef}
+          className="flex w-full py-12 overflow-x-auto cursor-grab"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
+          <style dangerouslySetInnerHTML={{__html: `
+            div::-webkit-scrollbar { display: none; }
+          `}} />
+          
           {CAROUSEL_ITEMS.map((repo, i) => (
             <div key={i} className="w-[85vw] md:w-[400px] lg:w-[450px] flex-shrink-0 mx-4">
               <TiltCard>
-                {/* Añadimos la clase project-card para que el CustomCursor reaccione expandiéndose enormemente */}
                 <a 
                   href={repo.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="project-card block w-full h-[450px] bg-ink-light border border-ember/20 flex flex-col relative group hover:border-ember/60 shadow-lg hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] hover:-translate-y-2 transition-all duration-700 rounded-xl overflow-hidden"
+                  className="project-card block w-full h-[450px] bg-ink-light border border-ember/20 flex flex-col relative hover:border-ember/60 shadow-lg hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] hover:-translate-y-2 transition-all duration-700 rounded-xl overflow-hidden"
                 >
                   
                   {/* Image Header con efecto Líquido */}
@@ -155,15 +238,15 @@ const Projects = () => {
                       {repo.name}
                     </h3>
                     
-                    <p className="text-sm text-ash/80 leading-relaxed font-light line-clamp-3">
+                    <p className="text-sm text-ash/80 leading-relaxed font-light line-clamp-3 pointer-events-none">
                       {repo.description}
                     </p>
 
                     <div className="mt-auto pt-6 flex flex-wrap gap-3">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash bg-ink-light px-3 py-1.5 border border-ember/20 rounded-sm shadow-sm">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash bg-ink-light px-3 py-1.5 border border-ember/20 rounded-sm shadow-sm pointer-events-none">
                         {repo.language}
                       </span>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash/50 px-3 py-1.5 rounded-sm flex items-center">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash/50 px-3 py-1.5 rounded-sm flex items-center pointer-events-none">
                         {t('projects.view_repo')}
                       </span>
                     </div>
@@ -172,7 +255,7 @@ const Projects = () => {
               </TiltCard>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
       
     </section>
