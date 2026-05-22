@@ -128,10 +128,10 @@ const Hero = () => {
             </motion.div>
 
             <h1 className="text-6xl sm:text-[9vw] lg:text-[8.5rem] font-serif leading-[0.85] text-ash tracking-tighter relative z-30 flex flex-col">
-              <span className="block overflow-hidden pb-4 whitespace-nowrap pr-4">
+              <span className="block overflow-hidden pb-4 whitespace-nowrap">
                 <StaggeredText text={t('hero.title1')} delay={0.1} />
               </span>
-              <span className="block text-ash/50 italic overflow-hidden pb-4 whitespace-nowrap self-end md:self-start md:pl-[25%]">
+              <span className="block text-ash/50 italic overflow-hidden pb-4 whitespace-nowrap">
                 <StaggeredText text={t('hero.title2')} delay={0.3} />
               </span>
             </h1>
