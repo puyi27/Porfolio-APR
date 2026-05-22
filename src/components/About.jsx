@@ -22,7 +22,7 @@ const About = () => {
       
       <div className="max-w-6xl mx-auto border-t border-ash/20 pt-16 relative">
         <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-ash/40 uppercase tracking-widest">
-          DOC. REF: 24527475E // MANIFIESTO
+          DOC. REF: 001 // MANIFIESTO
         </div>
         
         <h2 className="text-5xl md:text-8xl font-serif text-ash tracking-tighter mb-16 mix-blend-multiply">
