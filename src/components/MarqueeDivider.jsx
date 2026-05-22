@@ -24,8 +24,8 @@ const MarqueeDivider = ({ text }) => {
           <h2 
             className="text-[15vw] md:text-[10vw] font-serif tracking-tighter uppercase px-4 select-none"
             style={{
-              color: "rgba(10, 25, 47, 0.02)",
-              textShadow: "1px 1px 1px rgba(255, 255, 255, 0.9), -1px -1px 1px rgba(10, 25, 47, 0.15)"
+              color: "rgba(22, 58, 110, 0.04)",
+              textShadow: "2px 2px 3px rgba(255, 255, 255, 1), -2px -2px 4px rgba(22, 58, 110, 0.25)"
             }}
           >
             {content}
@@ -35,8 +35,8 @@ const MarqueeDivider = ({ text }) => {
           <h2 
             className="text-[15vw] md:text-[10vw] font-serif tracking-tighter uppercase px-4 select-none"
             style={{
-              color: "rgba(10, 25, 47, 0.02)",
-              textShadow: "1px 1px 1px rgba(255, 255, 255, 0.9), -1px -1px 1px rgba(10, 25, 47, 0.15)"
+              color: "rgba(22, 58, 110, 0.04)",
+              textShadow: "2px 2px 3px rgba(255, 255, 255, 1), -2px -2px 4px rgba(22, 58, 110, 0.25)"
             }}
           >
             {content}
