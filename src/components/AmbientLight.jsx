@@ -84,9 +84,9 @@ const AmbientLight = () => {
 
           float f = fbm(st + q * 1.5 + 0.01 * u_time);
 
-          // Paleta suavizada: "un pelín de textura"
-          vec3 bg = vec3(0.98, 0.98, 0.99); // Casi blanco puro
-          vec3 grey = vec3(0.92, 0.93, 0.95); // Gris muy sutil para que no sea totalmente liso
+          // Paleta suavizada: elegante y muy sutil
+          vec3 bg = vec3(0.98, 0.99, 1.0); // Blanco puro / perla
+          vec3 grey = vec3(0.95, 0.96, 0.97); // Gris ultra sutil, acabado pulido
           vec3 gold = vec3(0.85, 0.72, 0.35); // Oro
           vec3 navy = vec3(0.1, 0.2, 0.35); // Azul suave
 
@@ -95,15 +95,16 @@ const AmbientLight = () => {
 
           // Veta dorada: Hilo súper fino (Hairline)
           float goldVein = smoothstep(0.495, 0.50, f) - smoothstep(0.50, 0.505, f);
-          color = mix(color, gold, goldVein * 0.3); // Opacidad moderada
+          color = mix(color, gold, goldVein * 0.2); // Opacidad más sutil
 
           // Veta navy cruzada: Hilo súper fino
           float navyVein = smoothstep(0.395, 0.40, q.x) - smoothstep(0.40, 0.405, q.x);
-          color = mix(color, navy, navyVein * 0.15); // Opacidad muy baja
+          color = mix(color, navy, navyVein * 0.1); // Opacidad muy baja
 
-          // Textura física (Grano de alta frecuencia) directamente en WebGL para evitar 'puntillos grises' SVG
-          float grain = random(st * 500.0 + u_time);
-          color -= grain * 0.025; // Restamos un poquito de luminosidad aleatoria para dar rugosidad
+          // Textura física elegante (tipo papel premium / piedra mate suave)
+          // Sin u_time para evitar el efecto de "estática de TV" o lag visual
+          float grain = random(st * 300.0); 
+          color -= grain * 0.015; // Intensidad muy tenue
 
           gl_FragColor = vec4(color, 1.0);
       }
@@ -173,9 +174,9 @@ const AmbientLight = () => {
     window.addEventListener("mousemove", handleMouseMove);
 
     const render = () => {
-      // Rendimiento: Renderizar al 30% de la resolución para 120fps sin lag.
-      // El grano de alta frecuencia y el CSS scaling disimulan la baja resolución.
-      const dpr = 0.3; 
+      // Rendimiento equilibrado: 60% de resolución original.
+      // Elimina el desenfoque manteniendo un rendimiento muy superior a dpr=1.0.
+      const dpr = 0.6; 
       const displayWidth = Math.floor(window.innerWidth * dpr);
       const displayHeight = Math.floor(window.innerHeight * dpr);
       

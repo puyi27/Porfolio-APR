@@ -139,12 +139,9 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center lg:justify-end relative"
+            className="flex items-center justify-center lg:justify-end w-full"
           >
-            {/* Efecto blur de fondo para el form sobre la rejilla */}
-            <div className="absolute inset-0 max-w-md bg-white/40 backdrop-blur-xl rounded-xl z-0 pointer-events-none border border-ash/10 shadow-lg"></div>
-            
-            <form className="w-full max-w-md flex flex-col gap-8 p-8 relative z-10">
+            <form className="w-full max-w-md flex flex-col gap-8 p-8 relative z-10 bg-white/40 backdrop-blur-xl rounded-xl border border-ash/10 shadow-lg">
               <div className="relative group">
                 <input 
                   type="text" 
@@ -168,7 +165,7 @@ const Contact = () => {
               </div>
               
               <MagneticButton className="mt-4">
-                <button type="button" className="w-full py-4 bg-ash text-ink font-mono text-xs uppercase tracking-[0.3em] hover:bg-ember hover:text-ink transition-colors duration-500 interactive shadow-md">
+                <button type="button" className="w-full py-4 bg-ash text-ink font-mono text-xs uppercase tracking-[0.3em] hover:bg-ember hover:text-ink transition-colors duration-500 interactive shadow-md rounded-md">
                   {t('contact.send')}
                 </button>
               </MagneticButton>
