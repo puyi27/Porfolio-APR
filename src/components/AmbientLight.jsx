@@ -65,12 +65,13 @@ const AmbientLight = () => {
           mouse.x *= u_resolution.x / u_resolution.y;
 
           float dist = distance(st, mouse);
-          // Radio de influencia (0.3) e intensidad de la distorsión
-          float interaction = smoothstep(0.3, 0.0, dist);
+          // Radio de influencia (0.4) para que el empuje se note más
+          float interaction = smoothstep(0.4, 0.0, dist);
           
-          // Desplazar las coordenadas alejándolas del ratón (curvatura)
+          // Al restar la dirección, le decimos al shader que tome los píxeles más cercanos
+          // al ratón y los desplace hacia afuera. Visualmente esto EMPUJA las líneas.
           vec2 dir = normalize(st - mouse + 0.0001);
-          st += dir * interaction * 0.04; 
+          st -= dir * interaction * 0.08; 
           // ---------------------------------
 
           st *= 2.0; // Escala más amplia
