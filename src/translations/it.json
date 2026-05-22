@@ -1,0 +1,75 @@
+{
+  "header": {
+    "home": "Inizio",
+    "about": "Chi Sono",
+    "experience": "Esperienza",
+    "projects": "Progetti",
+    "contact": "Contatto"
+  },
+  "hero": {
+    "title1": "Ingegneria",
+    "title2": "del Software.",
+    "download_cv": "Scarica CV",
+    "scroll": "Scorri",
+    "subtitle": "Progettazione e sviluppo di ecosistemi digitali ad alte prestazioni. Specializzato in architetture Node.js ed esperienze visive immersive.",
+    "start": "Inizia Sistema",
+    "projects": "Vedi File"
+  },
+  "about": {
+    "subtitle": "01 // Chi Sono",
+    "title1": "Logica &",
+    "title2": "Struttura.",
+    "bio1": "Studente disciplinato e adattabile di ",
+    "bio_highlight": "Sviluppo di Applicazioni Web",
+    "bio2": " con una forte ambizione di espandere le mie competenze professionali ecosistema Full Stack.",
+    "bio3": "Sono una persona resiliente e impegnata. Completo la mia formazione tecnica con una vera esperienza internazionale in Italia, collaborando allo sviluppo di moduli di telemetria e cruscotti analitici industriali. Il mio obiettivo è fornire valore attraverso codice strutturato e lavoro di squadra.",
+    "terminal": "Terminale // root@server"
+  },
+  "experience": {
+    "subtitle": "02 // Esperienza",
+    "title1": "Evoluzione",
+    "title2": "del Sistema.",
+    "job1_year": "2024 - Presente",
+    "job1_title": "Diploma Superiore in Sviluppo di Applicazioni Web (Bilingue)",
+    "job1_company": "IES Cristóbal de Monroy (Alcalá de Guadaíra)",
+    "job1_desc": "Formazione tecnica superiore in programmazione full-stack, architetture web e sviluppo di applicazioni. Insegnato in modalità bilingue.",
+    "job2_year": "2024",
+    "job2_title": "Sviluppo Software / Tirocinio",
+    "job2_company": "FAE Technology (Bergamo, Italia)",
+    "job2_desc": "Sviluppo di moduli di telemetria e integrazione di cruscotti analitici per il monitoraggio delle infrastrutture industriali. Lavoro di squadra internazionale e adozione di metodologie agili in ambienti critici.",
+    "job3_year": "2022 - 2024",
+    "job3_title": "Maturità Tecnica",
+    "job3_company": "IES Hienipa (Alcalá de Guadaíra)",
+    "job3_desc": "Studi di maturità con specializzazione scientifico-tecnologica, che forniscono una solida base in matematica e risoluzione logica dei problemi."
+  },
+  "projects": {
+    "subtitle": "03 // Repository",
+    "title1": "Sistemi",
+    "title2": "Scalabili.",
+    "source_code": "Codice Sorgente",
+    "view_repo": "Vedi Repository",
+    "repo1_desc": "Progetto Finale in Sviluppo di Applicazioni Web. Piattaforma completa distribuita online.",
+    "repo2_desc": "Applicazione interattiva e visiva per il monitoraggio degli errori (Failure Mapping).",
+    "repo3_desc": "Stato delle API e servizio di telemetria per la segnalazione di incidenti in tempo reale.",
+    "repo4_desc": "Sistema di gestione del tempo, appuntamenti e organizzazione strutturata.",
+    "repo5_desc": "Componenti visivi e identità creative con distribuzione istantanea."
+  },
+  "contact": {
+    "subtitle": "04 // Contatto",
+    "title1": "Avviare",
+    "title2": "Connessione.",
+    "name": "ID / Nome",
+    "email": "Indirizzo di Rete (Email)",
+    "message": "Pacchetto Dati (Messaggio)",
+    "send": "Trasmettere",
+    "location": "Posizione",
+    "social": "Social",
+    "status": "ONLINE",
+    "location_val": "Siviglia, Spagna",
+    "desc": "In cerca di nuove sfide dove l'architettura del software e il design premium si incontrano. Aperto a posizioni di ingegneria e progetti complessi."
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati.",
+    "top": "Torna Su"
+  }
+}

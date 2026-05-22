@@ -1,0 +1,75 @@
+{
+  "header": {
+    "home": "Start",
+    "about": "Über Mich",
+    "experience": "Erfahrung",
+    "projects": "Projekte",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "title1": "Software-",
+    "title2": "entwicklung.",
+    "download_cv": "CV Herunterladen",
+    "scroll": "Scrollen",
+    "subtitle": "Entwurf und Entwicklung leistungsstarker digitaler Ökosysteme. Spezialisiert auf Node.js-Architekturen und immersive visuelle Erlebnisse.",
+    "start": "System Starten",
+    "projects": "Dateien Ansehen"
+  },
+  "about": {
+    "subtitle": "01 // Über Mich",
+    "title1": "Logik &",
+    "title2": "Struktur.",
+    "bio1": "Disziplinierter und anpassungsfähiger Student der ",
+    "bio_highlight": "Webanwendungsentwicklung",
+    "bio2": " mit dem großen Ehrgeiz, meine beruflichen Fähigkeiten im Full-Stack-Ökosystem zu erweitern.",
+    "bio3": "Ich bin eine belastbare und engagierte Person. Ich ergänze meinen technischen Hintergrund durch echte internationale Erfahrung in Italien, wo ich an der Entwicklung von Telemetriemodulen und industriellen Analyse-Dashboards mitgearbeitet habe. Mein Ziel ist es, durch strukturierten Code und Teamarbeit Mehrwert zu schaffen.",
+    "terminal": "Terminal // root@server"
+  },
+  "experience": {
+    "subtitle": "02 // Erfahrung",
+    "title1": "System-",
+    "title2": "entwicklung.",
+    "job1_year": "2024 - Heute",
+    "job1_title": "Höheres Diplom in Webanwendungsentwicklung (Zweisprachig)",
+    "job1_company": "IES Cristóbal de Monroy (Alcalá de Guadaíra)",
+    "job1_desc": "Höhere technische Ausbildung in Full-Stack-Programmierung, Webarchitekturen und Anwendungsentwicklung. Unterrichtet im zweisprachigen Modus.",
+    "job2_year": "2024",
+    "job2_title": "Softwareentwicklung / Praktikum",
+    "job2_company": "FAE Technology (Bergamo, Italien)",
+    "job2_desc": "Entwicklung von Telemetriemodulen und Integration analytischer Dashboards zur Überwachung industrieller Infrastrukturen. Internationale Teamarbeit und Einführung agiler Methoden in kritischen Umgebungen.",
+    "job3_year": "2022 - 2024",
+    "job3_title": "Technisches Abitur",
+    "job3_company": "IES Hienipa (Alcalá de Guadaíra)",
+    "job3_desc": "Abiturstudium mit wissenschaftlich-technischer Ausrichtung, das eine solide Grundlage in Mathematik und logischer Problemlösung bietet."
+  },
+  "projects": {
+    "subtitle": "03 // Repositories",
+    "title1": "Skalierbare",
+    "title2": "Systeme.",
+    "source_code": "Quellcode",
+    "view_repo": "Repository Ansehen",
+    "repo1_desc": "Abschlussprojekt in der Webanwendungsentwicklung. Umfassende Online-Plattform.",
+    "repo2_desc": "Interaktive und visuelle Anwendung zur Fehlerüberwachung (Failure Mapping).",
+    "repo3_desc": "API-Status- und Telemetriedienst für Echtzeit-Vorfallmeldungen.",
+    "repo4_desc": "Zeitmanagement, Termine und strukturiertes Organisationssystem.",
+    "repo5_desc": "Visuelle Komponenten und kreative Identitäten mit sofortiger Bereitstellung."
+  },
+  "contact": {
+    "subtitle": "04 // Kontakt",
+    "title1": "Verbindung",
+    "title2": "Herstellen.",
+    "name": "ID / Name",
+    "email": "Netzwerkadresse (E-Mail)",
+    "message": "Datenpaket (Nachricht)",
+    "send": "Übertragen",
+    "location": "Standort",
+    "social": "Netzwerke",
+    "status": "ONLINE",
+    "location_val": "Sevilla, Spanien",
+    "desc": "Auf der Suche nach neuen Herausforderungen, bei denen Softwarearchitektur und Premium-Design aufeinandertreffen. Offen für Ingenieurpositionen und komplexe Projekte."
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "top": "Nach Oben"
+  }
+}

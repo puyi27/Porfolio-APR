@@ -1,0 +1,75 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About Me",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title1": "Software",
+    "title2": "Engineering.",
+    "download_cv": "Download CV",
+    "scroll": "Scroll",
+    "subtitle": "Design and development of high-performance digital ecosystems. Specialized in Node.js architectures and immersive visual experiences.",
+    "start": "Init System",
+    "projects": "View Files"
+  },
+  "about": {
+    "subtitle": "01 // About Me",
+    "title1": "Logic &",
+    "title2": "Structure.",
+    "bio1": "Disciplined and adaptable ",
+    "bio_highlight": "Web Application Development",
+    "bio2": " student with a strong ambition to expand my professional skillset in the Full Stack ecosystem.",
+    "bio3": "I am a resilient and committed individual. I complement my technical background with real international experience in Italy, collaborating on the development of telemetry modules and industrial analytics dashboards. My goal is to deliver value through structured code and teamwork.",
+    "terminal": "Terminal // root@server"
+  },
+  "experience": {
+    "subtitle": "02 // Experience",
+    "title1": "System",
+    "title2": "Evolution.",
+    "job1_year": "2024 - Present",
+    "job1_title": "Higher National Diploma in Web Application Development (Bilingual)",
+    "job1_company": "IES Cristóbal de Monroy (Alcalá de Guadaíra)",
+    "job1_desc": "Higher technical training in full-stack programming, web architectures, and application development. Taught in a bilingual modality.",
+    "job2_year": "2024",
+    "job2_title": "Software Development / Internship",
+    "job2_company": "FAE Technology (Bergamo, Italy)",
+    "job2_desc": "Development of telemetry modules and integration of analytical dashboards for industrial infrastructure monitoring. International teamwork and agile methodologies adoption in critical environments.",
+    "job3_year": "2022 - 2024",
+    "job3_title": "Technical Baccalaureate",
+    "job3_company": "IES Hienipa (Alcalá de Guadaíra)",
+    "job3_desc": "Baccalaureate studies with scientific-technological specialization, providing a solid foundation in mathematics and logical problem solving."
+  },
+  "projects": {
+    "subtitle": "03 // Repositories",
+    "title1": "Scalable",
+    "title2": "Systems.",
+    "source_code": "Source Code",
+    "view_repo": "View Repository",
+    "repo1_desc": "Final Degree Project in Web Application Development. Comprehensive platform deployed online.",
+    "repo2_desc": "Interactive and visual application for error monitoring (Failure Mapping).",
+    "repo3_desc": "API status and telemetry service for real-time incident reporting.",
+    "repo4_desc": "Time management, appointments, and structured organization system.",
+    "repo5_desc": "Visual components and creative identities with instant deployment."
+  },
+  "contact": {
+    "subtitle": "04 // Contact",
+    "title1": "Establish",
+    "title2": "Connection.",
+    "name": "ID / Name",
+    "email": "Network Address (Email)",
+    "message": "Data Packet (Message)",
+    "send": "Transmit",
+    "location": "Location",
+    "social": "Socials",
+    "status": "ONLINE",
+    "location_val": "Seville, Spain",
+    "desc": "Looking for new challenges where software architecture and premium design meet. Open to engineering positions and complex projects."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "top": "Back to Top"
+  }
+}

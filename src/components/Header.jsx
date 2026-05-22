@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import MagneticButton from "./MagneticButton";
+import { useLanguage } from "../context/LanguageContext";
 
 const NAV_LINKS = [
   { name: "Inicio", href: "#inicio" },
@@ -12,6 +13,7 @@ const NAV_LINKS = [
 ];
 
 const Header = () => {
+  const { language, changeLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -60,18 +62,34 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8 items-center">
-            {NAV_LINKS.map((link) => (
-              <MagneticButton key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="font-mono text-[10px] uppercase tracking-widest text-ash/70 hover:text-ash transition-colors duration-300 relative group cursor-none"
+            {['home', 'about', 'experience', 'projects', 'contact'].map((key) => {
+              const href = `#${key === 'home' ? 'inicio' : key === 'about' ? 'sobre-mi' : key === 'experience' ? 'trayectoria' : key === 'projects' ? 'proyectos' : 'contacto'}`;
+              return (
+                <MagneticButton key={key}>
+                  <a
+                    href={href}
+                    onClick={(e) => handleNavClick(e, href)}
+                    className="font-mono text-[10px] uppercase tracking-widest text-ash/70 hover:text-ash transition-colors duration-300 relative group cursor-none"
+                  >
+                    {t(`header.${key}`)}
+                    <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-ember group-hover:w-full transition-all duration-300 ease-out"></span>
+                  </a>
+                </MagneticButton>
+              )
+            })}
+            
+            {/* Language Switcher Desktop */}
+            <div className="flex gap-3 items-center ml-8 border-l border-ash/10 pl-8">
+              {['es', 'en', 'it', 'de'].map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => changeLanguage(lang)}
+                  className={`font-mono text-[9px] uppercase tracking-widest transition-colors ${language === lang ? 'text-ember' : 'text-ash/40 hover:text-ash/80'}`}
                 >
-                  {link.name}
-                  <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-ember group-hover:w-full transition-all duration-300 ease-out"></span>
-                </a>
-              </MagneticButton>
-            ))}
+                  {lang}
+                </button>
+              ))}
+            </div>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -98,16 +116,35 @@ const Header = () => {
             className="fixed inset-0 z-40 bg-ink-light flex flex-col items-center justify-center pt-20"
           >
             <nav className="flex flex-col gap-8 items-center">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="font-serif text-3xl tracking-tight text-ash hover:text-ember transition-colors duration-300 interactive"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {['home', 'about', 'experience', 'projects', 'contact'].map((key) => {
+                const href = `#${key === 'home' ? 'inicio' : key === 'about' ? 'sobre-mi' : key === 'experience' ? 'trayectoria' : key === 'projects' ? 'proyectos' : 'contacto'}`;
+                return (
+                  <a
+                    key={key}
+                    href={href}
+                    onClick={(e) => handleNavClick(e, href)}
+                    className="font-serif text-3xl tracking-tight text-ash hover:text-ember transition-colors duration-300 interactive"
+                  >
+                    {t(`header.${key}`)}
+                  </a>
+                )
+              })}
+              
+              {/* Language Switcher Mobile */}
+              <div className="flex gap-6 mt-12 border-t border-ash/10 pt-12">
+                {['es', 'en', 'it', 'de'].map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => {
+                      changeLanguage(lang);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`font-mono text-xs uppercase tracking-widest transition-colors ${language === lang ? 'text-ember' : 'text-ash/40'}`}
+                  >
+                    {lang}
+                  </button>
+                ))}
+              </div>
             </nav>
           </motion.div>
         )}

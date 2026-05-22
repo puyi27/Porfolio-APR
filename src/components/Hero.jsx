@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FiArrowDownRight, FiDownload } from "react-icons/fi";
 import MagneticButton from "./MagneticButton";
 import { useEffect, useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 // Animación de texto letra a letra (Staggered Reveal)
 const StaggeredText = ({ text, delay = 0 }) => {
@@ -84,8 +85,10 @@ const ScrambleText = ({ text }) => {
 
 
 const Hero = () => {
+  const { t } = useLanguage();
+
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center px-6 md:px-12 bg-transparent text-ash pt-20 overflow-hidden">
+    <section id="inicio" className="relative min-h-screen flex items-center bg-transparent pt-20 overflow-hidden">
       
       <div className="max-w-7xl mx-auto w-full relative z-10">
         
@@ -119,17 +122,17 @@ const Hero = () => {
                   download="CV_Angel_Postigo.pdf"
                   className="inline-flex items-center gap-4 border border-ember/30 px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] text-ash hover:bg-ember hover:text-ink transition-colors duration-500 interactive group"
                 >
-                  Descargar CV <FiDownload className="group-hover:-translate-y-1 transition-transform duration-300" />
+                  {t('hero.download_cv')} <FiDownload className="group-hover:-translate-y-1 transition-transform duration-300" />
                 </a>
               </MagneticButton>
             </motion.div>
 
             <h1 className="text-6xl md:text-[8vw] lg:text-[7rem] font-serif leading-[0.9] text-ash tracking-tighter relative z-30">
               <span className="block overflow-hidden pb-2">
-                <StaggeredText text="Ingeniería" delay={0.1} />
+                <StaggeredText text={t('hero.title1')} delay={0.1} />
               </span>
-              <span className="block text-ember italic overflow-hidden pb-4">
-                <StaggeredText text="Estructural." delay={0.2} />
+              <span className="block text-ash/60 ml-[10vw] md:ml-[15vw] overflow-hidden pb-2 italic">
+                <StaggeredText text={t('hero.title2')} delay={0.3} />
               </span>
             </h1>
 
@@ -140,7 +143,7 @@ const Hero = () => {
               className="max-w-xl relative z-30"
             >
               <p className="text-lg md:text-xl font-light text-ash/80 leading-relaxed">
-                Diseño y desarrollo de ecosistemas digitales de alto rendimiento. Especializado en arquitecturas Node.js y experiencias visuales inmersivas.
+                {t('hero.subtitle')}
               </p>
             </motion.div>
 
@@ -155,7 +158,7 @@ const Hero = () => {
                   href="#contacto" 
                   className="group flex items-center gap-4 bg-ash text-ink px-8 py-4 font-mono text-xs uppercase tracking-[0.2em] hover:bg-ember transition-colors duration-500 interactive"
                 >
-                  <span>Iniciar Sistema</span>
+                  <span>{t('hero.start')}</span>
                   <FiArrowDownRight className="group-hover:rotate-45 transition-transform duration-500" size={18} />
                 </a>
               </MagneticButton>
@@ -165,7 +168,7 @@ const Hero = () => {
                 className="hidden md:flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ash/60 hover:text-ash transition-colors duration-500 interactive group"
               >
                 <div className="w-8 h-[1px] bg-ash/30 group-hover:w-12 group-hover:bg-ash transition-all duration-500"></div>
-                Ver Archivos
+                {t('hero.projects')}
               </a>
             </motion.div>
           </div>
@@ -215,7 +218,7 @@ const Hero = () => {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-12 left-6 md:left-12 flex flex-col items-center gap-4 hidden md:flex"
       >
-        <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-ash/50 rotate-90 origin-left translate-y-8">Scroll</span>
+        <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-ash/50 rotate-90 origin-left translate-y-8">{t('hero.scroll')}</span>
         <motion.div 
           animate={{ height: ["0%", "100%", "0%"], top: ["0%", "0%", "100%"] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

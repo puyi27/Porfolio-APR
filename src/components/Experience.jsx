@@ -1,31 +1,35 @@
 import { motion } from "framer-motion";
 import TiltCard from "./TiltCard";
 
-const EXPERIENCE_DATA = [
-  {
-    year: "2024",
-    title: "Desarrollo de Software / Prácticas",
-    company: "FAE Technology (Bérgamo, Italia)",
-    description: "Desarrollo de módulos de telemetría e integración de paneles analíticos para el monitoreo de infraestructura industrial. Trabajo en equipo internacional y adopción de metodologías ágiles en entornos críticos.",
-    tech: ["Node.js", "React", "Docker", "Sistemas Distribuidos"]
-  },
-  {
-    year: "2024 - Actualidad",
-    title: "Grado Superior en Desarrollo de Aplicaciones Web (Bilingüe)",
-    company: "IES Cristóbal de Monroy (Alcalá de Guadaíra)",
-    description: "Formación superior técnica en programación full-stack, arquitecturas web y desarrollo de aplicaciones. Impartido en modalidad bilingüe.",
-    tech: ["PHP", "Java", "JavaScript", "HTML5/CSS3"]
-  },
-  {
-    year: "2022 - 2024",
-    title: "Bachillerato Tecnológico",
-    company: "IES Hienipa (Alcalá de Guadaíra)",
-    description: "Estudios de Bachillerato con especialización científico-tecnológica, aportando una base sólida en matemáticas y resolución lógica de problemas.",
-    tech: ["Lógica", "Matemáticas", "Tecnología"]
-  }
-];
+import { useLanguage } from "../context/LanguageContext";
 
 const Experience = () => {
+  const { t } = useLanguage();
+
+  const EXPERIENCE_DATA = [
+    {
+      year: t('experience.job2_year'),
+      title: t('experience.job2_title'),
+      company: t('experience.job2_company'),
+      description: t('experience.job2_desc'),
+      tech: ["Node.js", "React", "Docker", "Sistemas Distribuidos"]
+    },
+    {
+      year: t('experience.job1_year'),
+      title: t('experience.job1_title'),
+      company: t('experience.job1_company'),
+      description: t('experience.job1_desc'),
+      tech: ["PHP", "Java", "JavaScript", "HTML5/CSS3"]
+    },
+    {
+      year: t('experience.job3_year'),
+      title: t('experience.job3_title'),
+      company: t('experience.job3_company'),
+      description: t('experience.job3_desc'),
+      tech: ["Lógica", "Matemáticas", "Tecnología"]
+    }
+  ];
+
   return (
     <section id="trayectoria" className="py-32 lg:py-48 bg-transparent text-ash relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -38,10 +42,10 @@ const Experience = () => {
           className="mb-24 md:mb-32 text-center md:text-left"
         >
           <span className="block font-mono text-[10px] tracking-[0.4em] uppercase text-ember mb-6">
-            02 // Trayectoria
+            {t('experience.subtitle')}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-ash tracking-tight">
-            Evolución <br className="hidden md:block" /> del Sistema.
+            {t('experience.title1')} <br className="hidden md:block" /> {t('experience.title2')}
           </h2>
         </motion.div>
 

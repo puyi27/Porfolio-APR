@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import { FiArrowRight } from "react-icons/fi";
+import { useLanguage } from "../context/LanguageContext";
 
 const Contact = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="contacto" className="bg-transparent text-ash py-32 lg:py-48 px-6 md:px-12 relative min-h-screen flex items-center">
       <motion.div 
@@ -24,14 +27,14 @@ const Contact = () => {
             className="flex flex-col justify-center"
           >
             <span className="block font-mono text-[10px] tracking-[0.4em] uppercase text-ember mb-6">
-              04 // Contacto
+              {t('contact.subtitle')}
             </span>
             <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-serif leading-[0.9] text-ash tracking-tighter mb-12">
-              Iniciar <br />
-              <span className="text-ember italic">Conexión.</span>
+              {t('contact.title1')} <br />
+              <span className="text-ember italic">{t('contact.title2')}</span>
             </h2>
             <p className="text-base font-light text-ash/80 max-w-md leading-relaxed mb-12">
-              Buscando nuevos desafíos donde la arquitectura de software y el diseño premium se encuentren. Abierto a posiciones de ingeniería y proyectos complejos.
+              {t('contact.desc')}
             </p>
             
             <div className="flex flex-col gap-6 font-mono text-xs uppercase tracking-[0.2em] text-ash/60">
@@ -59,20 +62,20 @@ const Contact = () => {
               <div className="relative group">
                 <input 
                   type="text" 
-                  placeholder="ID / Nombre" 
+                  placeholder={t('contact.name')} 
                   className="w-full bg-transparent border-b border-ash/20 py-4 px-2 text-ash placeholder:text-ash/30 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase interactive"
                 />
               </div>
               <div className="relative group">
                 <input 
                   type="email" 
-                  placeholder="Dirección de Red (Email)" 
+                  placeholder={t('contact.email')} 
                   className="w-full bg-transparent border-b border-ash/20 py-4 px-2 text-ash placeholder:text-ash/30 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase interactive"
                 />
               </div>
               <div className="relative group">
                 <textarea 
-                  placeholder="Paquete de Datos (Mensaje)" 
+                  placeholder={t('contact.message')} 
                   rows={4}
                   className="w-full bg-transparent border-b border-ash/20 py-4 px-2 text-ash placeholder:text-ash/30 focus:outline-none focus:border-ember transition-colors font-mono text-xs tracking-widest uppercase resize-none interactive"
                 />
@@ -80,7 +83,7 @@ const Contact = () => {
               
               <MagneticButton className="mt-4">
                 <button type="button" className="w-full py-4 border border-ember/40 text-ember font-mono text-xs uppercase tracking-[0.3em] hover:bg-ember hover:text-ink transition-colors duration-500 interactive">
-                  Transmitir
+                  {t('contact.send')}
                 </button>
               </MagneticButton>
             </form>

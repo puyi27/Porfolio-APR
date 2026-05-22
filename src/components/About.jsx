@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import TiltCard from "./TiltCard";
+import { useLanguage } from "../context/LanguageContext";
 
 const TypewriterCode = () => {
   const codeString = `// Arquitectura Backend Node.js\nconst server = new CoreService({\n  resilience: 'RabbitMQ',\n  cache: 'Redis',\n  telemetry: true\n});\n\nawait server.init();\nconsole.log('Sistema Escalable Online.');`;
@@ -50,6 +51,7 @@ const SKILLS_DATA = {
 };
 
 const About = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("backend");
 
   return (
@@ -70,10 +72,10 @@ const About = () => {
            className="mb-16"
         >
           <span className="block font-mono text-[10px] tracking-[0.4em] uppercase text-ember mb-6">
-            01 // Sobre Mí
+            {t('about.subtitle')}
           </span>
           <h2 className="text-4xl md:text-6xl font-serif text-ash tracking-tight">
-            Lógica & <br/> Estructura.
+            {t('about.title1')} <br/> {t('about.title2')}
           </h2>
         </motion.div>
 
@@ -86,9 +88,9 @@ const About = () => {
               <div className="h-full bg-ink-light border border-ember/10 p-8 md:p-12 shadow-lg hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)] transition-all duration-700 rounded-xl flex flex-col justify-center relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-ember/50"></div>
                 <p className="text-xl md:text-2xl font-serif leading-[1.6] text-ash tracking-tight pl-4">
-                  Estudiante disciplinado y adaptable de <span className="text-ember">Desarrollo de Aplicaciones Web</span> con gran ambición de ampliar mi conjunto de habilidades profesionales en el ecosistema Full Stack.
+                  {t('about.bio1')}<span className="text-ember">{t('about.bio_highlight')}</span>{t('about.bio2')}
                   <br /><br />
-                  Soy una persona resiliente y comprometida. Complemento mi formación técnica con experiencia internacional real en Italia, colaborando en el desarrollo de módulos de telemetría y paneles analíticos industriales. Mi objetivo es aportar valor a través de código estructurado y trabajo en equipo.
+                  {t('about.bio3')}
                 </p>
               </div>
             </TiltCard>
@@ -102,7 +104,7 @@ const About = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-ash/20"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-ash/20"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-ash/20"></div>
-                  <span className="ml-4 font-mono text-[9px] text-ash/40 uppercase">Terminal // root@server</span>
+                  <span className="ml-4 font-mono text-[9px] text-ash/40 uppercase">{t('about.terminal')}</span>
                 </div>
                 <TypewriterCode />
               </div>
