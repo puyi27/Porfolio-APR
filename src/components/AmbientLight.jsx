@@ -101,6 +101,10 @@ const AmbientLight = () => {
           float navyVein = smoothstep(0.395, 0.40, q.x) - smoothstep(0.40, 0.405, q.x);
           color = mix(color, navy, navyVein * 0.15); // Opacidad muy baja
 
+          // Textura física (Grano de alta frecuencia) directamente en WebGL para evitar 'puntillos grises' SVG
+          float grain = random(st * 500.0 + u_time);
+          color -= grain * 0.025; // Restamos un poquito de luminosidad aleatoria para dar rugosidad
+
           gl_FragColor = vec4(color, 1.0);
       }
     `;
