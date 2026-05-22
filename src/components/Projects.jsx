@@ -12,28 +12,28 @@ const Projects = () => {
       description: t('projects.repo1_desc'),
       language: "JavaScript",
       github: "https://github.com/puyi27/quavemind_final",
-      image: "/quavemind.png"
+      image: "/quavemind.png?v=2"
     },
     {
       name: "StatusPage",
       description: t('projects.repo3_desc'),
       language: "TypeScript",
       github: "https://github.com/puyi27/StatusPage",
-      image: "/statuspage.png"
+      image: "/statuspage.png?v=2"
     },
     {
       name: "CALENDAR",
       description: t('projects.repo4_desc'),
       language: "TypeScript",
       github: "https://github.com/puyi27/CALENDAR",
-      image: "/calendar.png"
+      image: "/calendar.png?v=2"
     },
     {
       name: "CAT-LOGO",
       description: t('projects.repo5_desc'),
       language: "JavaScript",
       github: "https://github.com/puyi27/CAT-LOGO",
-      image: "/agency.png"
+      image: "/agency.png?v=2"
     }
   ];
 
