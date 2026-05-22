@@ -1,67 +1,68 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
-const LoaderScreen = () => {
-  const [loading, setLoading] = useState(true);
+const LoaderScreen = ({ onComplete }) => {
+  const [startSplit, setStartSplit] = useState(false);
 
   useEffect(() => {
-    // 2 segundos de ceremonia de apertura
+    // Después de 2 segundos, iniciar la apertura de cortinas
     const timer = setTimeout(() => {
-      setLoading(false);
+      setStartSplit(true);
     }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    
+    // Después de que las cortinas se abran (1s de animación), desmontar
+    const unmountTimer = setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 3200);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(unmountTimer);
+    };
+  }, [onComplete]);
 
   return (
-    <AnimatePresence>
-      {loading && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none">
-          
-          {/* Cortina Superior Navy */}
-          <motion.div 
-            initial={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            className="absolute top-0 left-0 w-full h-1/2 bg-[#0f172a] z-10" // Color base Navy (slate-900)
-          />
-          
-          {/* Cortina Inferior Navy */}
-          <motion.div 
-            initial={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0f172a] z-10" 
-          />
-
-          {/* Contenido Central: El Monolito */}
+    <div className="fixed inset-0 z-[9999] pointer-events-none flex flex-col">
+      {/* Top Half */}
+      <motion.div
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: startSplit ? 0 : 1 }}
+        transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+        className="absolute top-0 left-0 w-full h-1/2 bg-ash origin-top"
+      />
+      
+      {/* Bottom Half */}
+      <motion.div
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: startSplit ? 0 : 1 }}
+        transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+        className="absolute bottom-0 left-0 w-full h-1/2 bg-ash origin-bottom flex items-start justify-center"
+      >
+        {/* Contenedor del monograma / mensaje */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: startSplit ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
+          className="absolute -top-6 flex flex-col items-center"
+        >
+          {/* Línea dorada que se dibuja */}
           <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.4 }}
-            className="relative z-20 flex flex-col items-center justify-center"
+            initial={{ width: 0 }}
+            animate={{ width: "120px" }}
+            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+            className="h-px bg-ember mb-4"
+          />
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="font-mono text-[10px] tracking-[0.4em] uppercase text-ember"
           >
-             {/* Línea dorada dibujándose */}
-             <motion.div
-               initial={{ width: 0 }}
-               animate={{ width: "240px" }}
-               transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-               className="h-[1px] bg-[#D4AF37] opacity-80 shadow-[0_0_10px_rgba(212,175,55,0.5)]"
-             />
-             
-             {/* Texto de precisión apareciendo debajo de la línea */}
-             <motion.span
-               initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
-               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-               className="font-mono text-[9px] tracking-[0.5em] text-[#D4AF37] uppercase mt-4"
-             >
-               Sistema Iniciado
-             </motion.span>
-          </motion.div>
-          
-        </div>
-      )}
-    </AnimatePresence>
+            Sistema Iniciado
+          </motion.span>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

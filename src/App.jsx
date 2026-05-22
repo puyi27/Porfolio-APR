@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -11,11 +12,24 @@ import LoaderScreen from "./components/LoaderScreen";
 import AmbientLight from "./components/AmbientLight";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <div className="relative min-h-screen bg-ink bg-grid-pattern text-ash selection:bg-ember selection:text-ink font-body">
+    <div className="relative min-h-screen bg-ink text-ash font-body overflow-x-hidden">
       
-      <LoaderScreen />
+      {isLoading && <LoaderScreen onComplete={() => setIsLoading(false)} />}
+      
       <CustomCursor />
+      
+      {/* Fondo animado en vídeo */}
+      <video 
+        autoPlay loop muted playsInline 
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-80 mix-blend-multiply pointer-events-none"
+      >
+        <source src="/fondo-marble-animado.mp4" type="video/mp4" />
+      </video>
+
+      {/* Fallback de WebGL Shader en caso de que el video tarde o no esté */}
       <AmbientLight />
       
       <Header />

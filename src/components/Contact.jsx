@@ -10,75 +10,76 @@ const BlueprintGrid = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
+    
     let animationFrameId;
     let mouse = { x: -1000, y: -1000 };
-    
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
     };
-    
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    window.addEventListener("resize", resize);
-    resize();
-
-    const draw = () => {
+    const drawGrid = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const gridSize = 50;
       
+      const gridSize = 50;
       ctx.lineWidth = 1;
       
-      for(let x = 0; x < canvas.width; x += gridSize) {
-        for(let y = 0; y < canvas.height; y += gridSize) {
-          // Calculate distance to mouse
-          const dx = (x + gridSize/2) - mouse.x;
-          const dy = (y + gridSize/2) - mouse.y;
-          const distance = Math.sqrt(dx*dx + dy*dy);
+      for (let x = 0; x < canvas.width; x += gridSize) {
+        for (let y = 0; y < canvas.height; y += gridSize) {
+          // Distancia al ratón
+          const dx = mouse.x - x;
+          const dy = mouse.y - y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
           
-          const maxDist = 300;
-          let opacity = 0.03; // Base tenuidad
+          // Opacidad base tenue (10%) + iluminación por proximidad
+          const maxDist = 350;
+          let opacity = 0.03; // Base hiper tenue para no sobrecargar
           if (distance < maxDist) {
-            opacity = 0.03 + (1 - distance/maxDist) * 0.2; // Brilla al acercarse el ratón
+            opacity += (1 - distance / maxDist) * 0.15; // Iluminación suave
           }
           
-          ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`; // Ember color
+          ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`; // Dorado Champán
           
-          ctx.beginPath();
-          ctx.rect(x, y, gridSize, gridSize);
-          ctx.stroke();
+          // Draw rect
+          ctx.strokeRect(x, y, gridSize, gridSize);
           
-          // Cruces de precisión arquitectónica
-          if (distance < maxDist - 100) {
-            ctx.beginPath();
-            ctx.moveTo(x - 2, y);
-            ctx.lineTo(x + 2, y);
-            ctx.moveTo(x, y - 2);
-            ctx.lineTo(x, y + 2);
-            ctx.stroke();
+          // Detalles arquitectónicos (cruces en intersecciones)
+          if (distance < maxDist * 0.6) {
+            ctx.fillStyle = `rgba(212, 175, 55, ${opacity * 2})`;
+            ctx.fillRect(x - 1, y - 1, 2, 2);
           }
         }
       }
       
-      animationFrameId = requestAnimationFrame(draw);
+      animationFrameId = requestAnimationFrame(drawGrid);
     };
     
-    draw();
-    
+    drawGrid();
+
     return () => {
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
+    />
+  );
 };
 
 const Contact = () => {
@@ -87,8 +88,9 @@ const Contact = () => {
   return (
     <section id="contacto" className="bg-transparent text-ash py-32 lg:py-48 px-6 md:px-12 relative min-h-screen flex items-center overflow-hidden">
       
+      {/* Rejilla Arquitectónica Animada */}
       <BlueprintGrid />
-      
+
       <motion.div 
         initial={{ width: 0 }}
         whileInView={{ width: "100%" }}
@@ -105,7 +107,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col justify-center bg-ink/30 p-8 rounded-xl backdrop-blur-sm border border-ember/5"
+            className="flex flex-col justify-center"
           >
             <span className="block font-mono text-[10px] tracking-[0.4em] uppercase text-ember mb-6">
               {t('contact.subtitle')}
@@ -137,9 +139,12 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center lg:justify-end"
+            className="flex items-center justify-center lg:justify-end relative"
           >
-            <form className="w-full max-w-md flex flex-col gap-8 bg-ink-light/40 p-8 border border-ember/10 backdrop-blur-md shadow-[0_0_30px_rgba(212,175,55,0.05)]">
+            {/* Efecto blur de fondo para el form sobre la rejilla */}
+            <div className="absolute inset-0 max-w-md bg-ink-light/40 backdrop-blur-md rounded-xl z-0 pointer-events-none border border-ember/10"></div>
+            
+            <form className="w-full max-w-md flex flex-col gap-8 p-8 relative z-10">
               <div className="relative group">
                 <input 
                   type="text" 

@@ -19,18 +19,17 @@ const StaggeredText = ({ text, delay = 0 }) => {
   const child = {
     visible: {
       opacity: 1,
-      y: 0,
       filter: "blur(0px)",
+      scale: 1,
       transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100,
+        duration: 1.5,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
     hidden: {
       opacity: 0,
-      y: 20,
       filter: "blur(15px)",
+      scale: 1.05,
     },
   };
 
