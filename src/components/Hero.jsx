@@ -20,17 +20,16 @@ const StaggeredText = ({ text, delay = 0 }) => {
     visible: {
       opacity: 1,
       y: 0,
-      rotateX: 0,
+      filter: "blur(0px)",
       transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
+        duration: 1.5,
+        ease: [0.16, 1, 0.3, 1], // Asentamiento orgánico suave
       },
     },
     hidden: {
       opacity: 0,
-      y: 50,
-      rotateX: -90,
+      y: 10,
+      filter: "blur(15px)", // Tinta borrosa inicial
     },
   };
 

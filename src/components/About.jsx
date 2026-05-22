@@ -78,52 +78,35 @@ const TerminalProfile = () => {
   );
 };
 
-const SkillsOrbit = () => {
-  const skills = ["PHP", "Java", "JavaScript", "HTML5", "CSS3", "React", "Node.js", "Docker"];
-  
+const TechnicalManifesto = () => {
+  const skills = [
+    { name: "Node.js", rotate: -2 },
+    { name: "React", rotate: 3 },
+    { name: "TypeScript", rotate: -1 },
+    { name: "PostgreSQL", rotate: 4 },
+    { name: "Docker", rotate: -3 },
+    { name: "Microservices", rotate: 2 },
+    { name: "Architecture", rotate: -4 },
+    { name: "Java / PHP", rotate: 1 },
+  ];
+
   return (
-    <div className="relative w-full h-full min-h-[300px] flex items-center justify-center overflow-hidden">
-      {/* Centro */}
-      <div className="absolute w-16 h-16 rounded-full bg-ink flex items-center justify-center border border-ember/30 z-20 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
-        <span className="font-mono text-[10px] tracking-widest text-ember">CORE</span>
-      </div>
-
-      {/* Órbitas */}
-      <div className="absolute w-[180px] h-[180px] rounded-full border border-ash/10"></div>
-      <div className="absolute w-[280px] h-[280px] rounded-full border border-ash/5"></div>
-
-      {/* Planetas (Skills) girando */}
-      <motion.div 
-        animate={{ rotate: 360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[280px] h-[280px]"
-      >
-        {skills.map((skill, index) => {
-          const angle = (index / skills.length) * 360;
-          const radius = index % 2 === 0 ? 90 : 140; // Alternar entre órbita interior y exterior
-          
-          return (
-            <div 
-              key={skill}
-              className="absolute top-1/2 left-1/2"
-              style={{
-                marginLeft: "-30px",
-                marginTop: "-15px",
-                transform: `rotate(${angle}deg) translate(${radius}px) rotate(-${angle}deg)`
-              }}
-            >
-              {/* Contrarrestar la rotación principal para que el texto siempre se lea derecho */}
-              <motion.div 
-                animate={{ rotate: -360 }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="bg-ink border border-ash/20 px-3 py-1.5 rounded-full shadow-sm hover:border-ember transition-colors interactive cursor-pointer w-[60px] flex justify-center"
-              >
-                <span className="font-mono text-[9px] text-ash tracking-widest">{skill}</span>
-              </motion.div>
-            </div>
-          );
-        })}
-      </motion.div>
+    <div className="w-full h-full min-h-[300px] flex flex-wrap content-center justify-center gap-4 p-8">
+      {skills.map((skill, index) => (
+        <motion.div
+          key={skill.name}
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="relative group"
+          style={{ transform: `rotate(${skill.rotate}deg)` }}
+        >
+          {/* Sello Tipográfico */}
+          <div className="border border-ink/40 text-ink px-4 py-2 font-serif text-xl tracking-tight hover:bg-ink hover:text-white transition-colors duration-500 cursor-pointer interactive">
+            {skill.name}
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 };
@@ -191,14 +174,15 @@ const About = () => {
             </TiltCard>
           </div>
 
-          {/* Constelación de Skills */}
+          {/* Manifiesto Técnico (Sellos Tipográficos) */}
           <div className="md:col-span-2 lg:col-span-2">
             <TiltCard>
-              <div className="h-full bg-ink-light border border-ember/10 p-6 shadow-lg hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)] transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px] overflow-hidden">
+              <div className="h-full bg-ink-light border border-ember/10 shadow-lg hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)] transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px] overflow-hidden bg-cover bg-center">
+                {/* Fondo de textura extra sutil si queremos que parezca papel */}
                 <div className="absolute top-6 left-6 z-30">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-ash/40">Tech Orbit</span>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-ash/40">Technical Manifesto</span>
                 </div>
-                <SkillsOrbit />
+                <TechnicalManifesto />
               </div>
             </TiltCard>
           </div>

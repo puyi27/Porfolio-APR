@@ -2,18 +2,98 @@ import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import { FiArrowRight } from "react-icons/fi";
 import { useLanguage } from "../context/LanguageContext";
+import { useEffect, useRef } from "react";
+
+const BlueprintGrid = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let animationFrameId;
+    let mouse = { x: -1000, y: -1000 };
+
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+
+    // Usamos el window para capturar el ratón incluso si estamos sobre otros divs
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    const drawGrid = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const gridSize = 50;
+      
+      ctx.lineWidth = 1;
+      
+      for (let x = 0; x <= canvas.width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        
+        const dist = Math.abs(x - mouse.x);
+        const opacity = Math.max(0.02, 0.3 - (dist / 400));
+        ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`;
+        ctx.stroke();
+      }
+
+      for (let y = 0; y <= canvas.height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        
+        const dist = Math.abs(y - mouse.y);
+        const opacity = Math.max(0.02, 0.3 - (dist / 400));
+        ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`;
+        ctx.stroke();
+      }
+
+      animationFrameId = requestAnimationFrame(drawGrid);
+    };
+
+    drawGrid();
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="absolute inset-0 w-full h-full pointer-events-none z-0"
+    />
+  );
+};
 
 const Contact = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="contacto" className="bg-transparent text-ash py-32 lg:py-48 px-6 md:px-12 relative min-h-screen flex items-center">
+    <section id="contacto" className="bg-transparent text-ash py-32 lg:py-48 px-6 md:px-12 relative min-h-screen flex items-center overflow-hidden">
+      
+      {/* Blueprint Grid animado en el fondo */}
+      <BlueprintGrid />
+
       <motion.div 
         initial={{ width: 0 }}
         whileInView={{ width: "100%" }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 h-[1px] bg-ember/20"
+        className="absolute top-0 left-0 h-[1px] bg-ember/20 z-10"
       />
       
       <div className="max-w-7xl mx-auto w-full relative z-10">

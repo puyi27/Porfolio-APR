@@ -5,12 +5,11 @@ const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringProject, setIsHoveringProject] = useState(false);
   
-  // Posición base
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Física de muelle súper suave (Fluid inercia)
-  const springConfig = { damping: 25, stiffness: 200, mass: 0.1 };
+  // Física ultra-tensa para latencia cero pero movimiento orgánico
+  const springConfig = { damping: 40, stiffness: 400, mass: 0.05 };
   const smoothX = useSpring(cursorX, springConfig);
   const smoothY = useSpring(cursorY, springConfig);
 
@@ -61,7 +60,7 @@ const CustomCursor = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full bg-ash/10 pointer-events-none z-[9999] flex items-center justify-center backdrop-blur-[2px]"
+      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center overflow-hidden"
       style={{
         x: smoothX,
         y: smoothY,
@@ -69,13 +68,14 @@ const CustomCursor = () => {
         translateY: "-50%",
       }}
       animate={{
-        width: isHovering ? (isHoveringProject ? 80 : 48) : 24,
-        height: isHovering ? (isHoveringProject ? 80 : 48) : 24,
-        backgroundColor: isHovering ? "rgba(248, 249, 250, 0.95)" : "rgba(100,116,139,0.1)", // F8F9FA is ink
-        border: isHovering ? "none" : "1px solid rgba(100,116,139,0.3)",
-        mixBlendMode: isHovering ? (isHoveringProject ? "normal" : "exclusion") : "normal"
+        width: isHoveringProject ? 80 : (isHovering ? 20 : 40),
+        height: isHoveringProject ? 80 : (isHovering ? 20 : 40),
+        backgroundColor: isHovering ? "rgba(212,175,55,1)" : "transparent",
+        backdropFilter: isHovering ? "none" : "invert(1) grayscale(1)",
+        WebkitBackdropFilter: isHovering ? "none" : "invert(1) grayscale(1)",
+        border: isHovering ? "none" : "1px solid rgba(255,255,255,0.1)",
       }}
-      transition={{ type: "spring", damping: 25, stiffness: 200 }}
+      transition={{ type: "spring", damping: 30, stiffness: 300 }}
     >
       <motion.div 
         initial={{ opacity: 0 }}
