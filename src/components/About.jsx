@@ -78,35 +78,57 @@ const TerminalProfile = () => {
   );
 };
 
-const TechnicalManifesto = () => {
-  const skills = [
-    { name: "Node.js", rotate: -2 },
-    { name: "React", rotate: 3 },
-    { name: "TypeScript", rotate: -1 },
-    { name: "PostgreSQL", rotate: 4 },
-    { name: "Docker", rotate: -3 },
-    { name: "Microservices", rotate: 2 },
-    { name: "Architecture", rotate: -4 },
-    { name: "Java / PHP", rotate: 1 },
+// Manifiesto Técnico: Sellos de Tinta Azul Marino sobre el mármol
+const SkillsManifesto = () => {
+  const techStack = [
+    { name: "Node.js", col: "col-start-1 md:col-start-1" },
+    { name: "TypeScript", col: "col-start-2 md:col-start-3" },
+    { name: "React", col: "col-start-1 md:col-start-2 mt-8" },
+    { name: "Next.js", col: "col-start-2 md:col-start-4 mt-8" },
+    { name: "PostgreSQL", col: "col-start-1 md:col-start-1 mt-8" },
+    { name: "Docker", col: "col-start-2 md:col-start-3 mt-8" },
   ];
 
   return (
-    <div className="w-full h-full min-h-[300px] flex flex-wrap content-center justify-center gap-4 p-8">
-      {skills.map((skill, index) => (
-        <motion.div
-          key={skill.name}
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="relative group"
-          style={{ transform: `rotate(${skill.rotate}deg)` }}
-        >
-          {/* Sello Tipográfico */}
-          <div className="border border-ink/40 text-ink px-4 py-2 font-serif text-xl tracking-tight hover:bg-ink hover:text-white transition-colors duration-500 cursor-pointer interactive">
-            {skill.name}
-          </div>
-        </motion.div>
-      ))}
+    <div className="relative w-full h-full py-8 px-6 md:px-12 bg-ink/5 border border-ink/10 flex flex-col justify-center rounded-sm overflow-hidden">
+      
+      {/* Sello Circular Giratorio */}
+      <div className="absolute -top-16 -right-16 md:-top-10 md:-right-10 w-48 h-48 border-2 border-ink/20 rounded-full flex items-center justify-center opacity-80 mix-blend-multiply pointer-events-none z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full animate-[spin_25s_linear_infinite]">
+          <path id="curve" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
+          <text className="font-mono text-[8px] uppercase tracking-[0.3em] fill-ink">
+            <textPath href="#curve">CERTIFIED TECHNICAL ARCHITECT • FULL STACK •</textPath>
+          </text>
+        </svg>
+        <span className="absolute font-serif text-3xl font-bold text-ink tracking-tighter">AP</span>
+      </div>
+
+      <div className="mb-10 border-b border-ink/20 pb-4 relative z-20">
+        <span className="font-mono text-[10px] uppercase tracking-widest text-ink/50">Tech Specifications</span>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 gap-x-4 relative z-20">
+        {techStack.map((tech, i) => (
+          <motion.div 
+            key={tech.name}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className={`${tech.col} col-span-1 md:col-span-2 flex flex-col`}
+          >
+            {/* Efecto de "Sello de tinta" */}
+            <span 
+              className="font-serif text-2xl md:text-3xl lg:text-4xl text-ink font-bold mix-blend-multiply tracking-tighter opacity-90 hover:opacity-100 transition-opacity interactive cursor-default" 
+              style={{ textShadow: '0px 0px 1px rgba(15, 23, 42, 0.4)' }} // Navy ink shadow
+            >
+              {tech.name}
+            </span>
+            <div className="h-[1px] w-3/4 bg-ink/20 mt-1"></div>
+            <span className="font-mono text-[7px] uppercase tracking-widest text-ink/50 mt-1">v.2024</span>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -174,15 +196,11 @@ const About = () => {
             </TiltCard>
           </div>
 
-          {/* Manifiesto Técnico (Sellos Tipográficos) */}
+          {/* Manifiesto Técnico */}
           <div className="md:col-span-2 lg:col-span-2">
             <TiltCard>
-              <div className="h-full bg-ink-light border border-ember/10 shadow-lg hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)] transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px] overflow-hidden bg-cover bg-center">
-                {/* Fondo de textura extra sutil si queremos que parezca papel */}
-                <div className="absolute top-6 left-6 z-30">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-ash/40">Technical Manifesto</span>
-                </div>
-                <TechnicalManifesto />
+              <div className="h-full bg-ash/5 border border-ink/5 p-6 shadow-md hover:shadow-lg transition-all duration-700 rounded-xl flex flex-col relative min-h-[300px]">
+                <SkillsManifesto />
               </div>
             </TiltCard>
           </div>

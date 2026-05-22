@@ -5,11 +5,12 @@ const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringProject, setIsHoveringProject] = useState(false);
   
+  // Posición base
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Física ultra-tensa para latencia cero pero movimiento orgánico
-  const springConfig = { damping: 40, stiffness: 400, mass: 0.05 };
+  // Muelle ultratenso: casi sin lag, pero con suficiente suavizado para sentirse "pesado" como cristal
+  const springConfig = { damping: 40, stiffness: 600, mass: 0.05 };
   const smoothX = useSpring(cursorX, springConfig);
   const smoothY = useSpring(cursorY, springConfig);
 
@@ -58,6 +59,8 @@ const CustomCursor = () => {
 
   if (typeof window !== 'undefined' && window.innerWidth <= 768) return null;
 
+  const isHoverState = isHovering || isHoveringProject;
+
   return (
     <motion.div
       className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center overflow-hidden"
@@ -66,25 +69,18 @@ const CustomCursor = () => {
         y: smoothY,
         translateX: "-50%",
         translateY: "-50%",
+        backdropFilter: isHoverState ? "none" : "invert(1) grayscale(1)",
+        WebkitBackdropFilter: isHoverState ? "none" : "invert(1) grayscale(1)",
       }}
       animate={{
-        width: isHoveringProject ? 80 : (isHovering ? 20 : 40),
-        height: isHoveringProject ? 80 : (isHovering ? 20 : 40),
-        backgroundColor: isHovering ? "rgba(212,175,55,1)" : "transparent",
-        backdropFilter: isHovering ? "none" : "invert(1) grayscale(1)",
-        WebkitBackdropFilter: isHovering ? "none" : "invert(1) grayscale(1)",
-        border: isHovering ? "none" : "1px solid rgba(255,255,255,0.1)",
+        width: isHoverState ? 12 : 56,
+        height: isHoverState ? 12 : 56,
+        backgroundColor: isHoverState ? "#D4AF37" : "rgba(255, 255, 255, 0.05)",
+        border: isHoverState ? "none" : "1px solid rgba(255,255,255,0.15)",
+        boxShadow: isHoverState ? "0 0 20px rgba(212,175,55,0.5)" : "none"
       }}
-      transition={{ type: "spring", damping: 30, stiffness: 300 }}
-    >
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHoveringProject ? 1 : 0 }}
-        className="text-[10px] text-ink font-mono tracking-widest font-bold"
-      >
-        VIEW
-      </motion.div>
-    </motion.div>
+      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+    />
   );
 };
 

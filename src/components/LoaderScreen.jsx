@@ -5,53 +5,65 @@ const LoaderScreen = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 2.5s para la ceremonia de apertura
+    // Ceremonia de apertura de 2.5 segundos
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500); 
+    }, 2500);
     return () => clearTimeout(timer);
   }, []);
-
-  // Curva de animación editorial ultra-premium (lenta al empezar, rápida, lenta al frenar)
-  const transition = { duration: 1.4, ease: [0.76, 0, 0.24, 1] };
 
   return (
     <AnimatePresence>
       {loading && (
-        <div className="fixed inset-0 z-[100] flex pointer-events-none">
-          {/* Puerta Izquierda */}
+        <div className="fixed inset-0 z-[100] pointer-events-none flex">
+          {/* Cortina Izquierda */}
           <motion.div 
             initial={{ x: "0%" }}
             exit={{ x: "-100%" }}
-            transition={transition}
-            className="w-1/2 h-full bg-[#0a1120] border-r border-ember/10" // Deep Navy
+            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+            className="w-1/2 h-full bg-[#0a192f] border-r border-ember/20 shadow-[5px_0_30px_rgba(0,0,0,0.5)] z-20"
           />
-          {/* Puerta Derecha */}
+          {/* Cortina Derecha */}
           <motion.div 
             initial={{ x: "0%" }}
             exit={{ x: "100%" }}
-            transition={transition}
-            className="w-1/2 h-full bg-[#0a1120] border-l border-ember/10"
+            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+            className="w-1/2 h-full bg-[#0a192f] border-l border-ember/20 shadow-[-5px_0_30px_rgba(0,0,0,0.5)] z-20"
           />
-          
-          {/* Contenido Central Absoluto */}
+
+          {/* Contenido Central (El Monolito) */}
           <motion.div 
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="absolute inset-0 flex flex-col items-center justify-center z-30"
           >
-            {/* Texto Trazado Animado */}
-            <div className="relative overflow-hidden px-8 py-4">
-               {/* Efecto de máscara para revelar el texto suavemente */}
-               <motion.div 
-                  initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-                  animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
-                  transition={{ duration: 1.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
-               >
-                 <span className="font-mono text-xs md:text-sm uppercase tracking-[0.8em] text-ember text-center block" style={{ textShadow: "0px 0px 15px rgba(212,175,55,0.4)" }}>
-                   SISTEMA INICIADO
-                 </span>
-               </motion.div>
+            {/* Trazado de monograma "A" en oro */}
+            <div className="relative flex items-center justify-center mb-8 h-24 w-24">
+              <svg width="100" height="100" viewBox="0 0 100 100" className="absolute drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+                <motion.path 
+                  d="M 20 80 L 50 20 L 80 80 M 35 60 L 65 60" 
+                  fill="transparent"
+                  strokeWidth="2"
+                  stroke="#D4AF37"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            
+            <div className="mt-8 overflow-hidden">
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 0.8, delay: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                className="font-mono text-[10px] md:text-xs uppercase tracking-[0.5em] text-ember drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]"
+              >
+                SISTEMA INICIADO
+              </motion.div>
             </div>
           </motion.div>
         </div>
