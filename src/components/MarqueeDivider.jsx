@@ -4,6 +4,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  useMotionValue,
   useVelocity,
   useAnimationFrame
 } from "framer-motion";
@@ -14,7 +15,7 @@ function wrap(min, max, v) {
 }
 
 const MarqueeDivider = ({ text }) => {
-  const baseX = useRef(0);
+  const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, {
@@ -32,7 +33,7 @@ const MarqueeDivider = ({ text }) => {
     let moveBy = directionFactor.current * -0.05 * (delta / 16);
     // Añadimos la velocidad de scroll al movimiento base
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
-    baseX.current += moveBy;
+    baseX.set(baseX.get() + moveBy);
   });
 
   return (
