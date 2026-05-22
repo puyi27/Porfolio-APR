@@ -32,7 +32,7 @@ const AmbientLight = () => {
         <div 
           className="absolute inset-[-10%] w-[120%] h-[120%] animate-tide opacity-[0.85]"
           style={{
-            backgroundImage: `url("/marble-bg.jpg?v=2")`,
+            backgroundImage: `url("/marble-bg.png?v=3")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'url(#liquidTide)'
