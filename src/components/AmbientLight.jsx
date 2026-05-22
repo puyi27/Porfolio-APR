@@ -69,22 +69,23 @@ const AmbientLight = () => {
 
           float f = fbm(st + q * 1.5 + 0.01 * u_time);
 
-          // Paleta súper luminosa (Alabastro clarito)
+          // Paleta ultra minimalista (Casi todo blanco)
           vec3 bg = vec3(1.0, 1.0, 1.0); // Blanco puro
-          vec3 grey = vec3(0.95, 0.96, 0.98); // Gris perla clarísimo
+          vec3 grey = vec3(0.97, 0.98, 0.99); // Gris nube hiper sutil
           vec3 gold = vec3(0.85, 0.72, 0.35); // Oro
           vec3 navy = vec3(0.1, 0.2, 0.35); // Azul suave
 
           // Fondo
-          vec3 color = mix(bg, grey, f * 1.2);
+          vec3 color = mix(bg, grey, f);
 
-          // Veta dorada finita y translúcida
-          float goldVein = smoothstep(0.45, 0.48, f) - smoothstep(0.48, 0.51, f);
-          color = mix(color, gold, goldVein * 0.35);
+          // Veta dorada: Hilo súper fino (Hairline)
+          // Usamos una diferencia ínfima (0.005) para que la línea sea de un píxel de grosor
+          float goldVein = smoothstep(0.495, 0.50, f) - smoothstep(0.50, 0.505, f);
+          color = mix(color, gold, goldVein * 0.25); // Baja opacidad para que no distraiga
 
-          // Veta navy cruzada sutil
-          float navyVein = smoothstep(0.35, 0.37, q.x) - smoothstep(0.37, 0.39, q.x);
-          color = mix(color, navy, navyVein * 0.15);
+          // Veta navy cruzada: Hilo súper fino
+          float navyVein = smoothstep(0.395, 0.40, q.x) - smoothstep(0.40, 0.405, q.x);
+          color = mix(color, navy, navyVein * 0.1); // Casi imperceptible
 
           gl_FragColor = vec4(color, 1.0);
       }
