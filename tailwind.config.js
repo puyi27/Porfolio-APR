@@ -16,10 +16,10 @@ export default {
           dim: '#A68421',
         },
         fire: {
-          DEFAULT: '#112A46', /* Deep Navy Blue */
+          DEFAULT: '#163A6E', /* Balanced Navy Blue */
         },
         ash: {
-          DEFAULT: '#112A46', /* Deep Navy Blue for Text */
+          DEFAULT: '#163A6E', /* Balanced Navy Blue for Text */
         }
       },
       fontFamily: {
