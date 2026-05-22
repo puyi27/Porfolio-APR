@@ -89,13 +89,13 @@ const Hero = () => {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center bg-transparent pt-20 overflow-hidden">
       
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
         
         {/* Layout en 2 columnas para simetría perfecta */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center w-full pt-8 lg:pt-0">
           
           {/* COLUMNA IZQUIERDA: Texto Principal */}
-          <div className="flex flex-col gap-6 md:gap-8 order-2 lg:order-1">
+          <div className="flex flex-col gap-6 md:gap-8 order-2 lg:order-1 mt-4 lg:mt-0">
             
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
