@@ -66,8 +66,8 @@ const Experience = () => {
           
           {/* Línea central animada (se llena con scroll brillante) */}
           <motion.div 
-            style={{ height: lineHeight }}
-            className="absolute left-[20px] md:left-1/2 top-0 w-[2px] bg-gradient-to-b from-ember to-ember/50 md:-translate-x-1/2 shadow-[0_0_15px_rgba(212,175,55,0.8)] rounded-full origin-top"
+            style={{ scaleY: lineHeight }}
+            className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-ember to-ember/50 md:-translate-x-1/2 shadow-[0_0_15px_rgba(212,175,55,0.8)] rounded-full origin-top"
           ></motion.div>
 
           <div className="flex flex-col gap-12 md:gap-24">
