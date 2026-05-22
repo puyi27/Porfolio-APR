@@ -11,7 +11,7 @@
     "title2": "Engineer.",
     "download_cv": "Download CV",
     "scroll": "Scroll",
-    "subtitle": "Design and development of high-performance digital ecosystems. Specialized in Node.js architectures and immersive visual experiences.",
+    "subtitle": "Custom web application design and development. Specialized in creating fast, secure, and visually appealing digital experiences with modern technologies like Node.js.",
     "start": "Init System",
     "projects": "View Files"
   },
@@ -19,10 +19,10 @@
     "subtitle": "01 // About Me",
     "title1": "Logic &",
     "title2": "Structure.",
-    "bio1": "Disciplined and adaptable ",
-    "bio_highlight": "Web Application Development",
-    "bio2": " student with a strong ambition to expand my professional skillset in the Full Stack ecosystem.",
-    "bio3": "I am a resilient and committed individual. I complement my technical background with real international experience in Italy, collaborating on the development of telemetry modules and industrial analytics dashboards. My goal is to deliver value through structured code and teamwork.",
+    "bio1": "I am a qualified ",
+    "bio_highlight": "Web Application Developer",
+    "bio2": " with a strong passion for continuous learning and improving within the Full Stack ecosystem.",
+    "bio3": "I consider myself a problem-solver and a strong team player. My recent international experience in Italy allowed me to collaborate on industrial monitoring projects, providing practical solutions in real-world environments. My goal is to continue adding value by building useful and well-structured applications.",
     "terminal": "Terminal // root@server"
   },
   "experience": {
@@ -36,11 +36,11 @@
     "job2_year": "Present",
     "job2_title": "Software Development / Internship",
     "job2_company": "FAE Technology (Bergamo, Italy)",
-    "job2_desc": "Development of telemetry modules and integration of analytical dashboards for industrial infrastructure monitoring. International teamwork and agile methodologies adoption in critical environments.",
+    "job2_desc": "Collaboration in the development of control panels and monitoring tools for industrial projects. Experience working in an international team using agile methodologies.",
     "job3_year": "2022 - 2024",
     "job3_title": "Technical Baccalaureate",
     "job3_company": "IES Hienipa (Alcalá de Guadaíra)",
-    "job3_desc": "Baccalaureate studies with scientific-technological specialization, providing a solid foundation in mathematics and logical problem solving."
+    "job3_desc": "Scientific-technological background providing a solid logical and mathematical foundation, essential for programming."
   },
   "projects": {
     "subtitle": "03 // Portfolio",
@@ -48,11 +48,11 @@
     "title2": "Projects.",
     "source_code": "Source Code",
     "view_repo": "View Repository",
-    "repo1_desc": "Final Degree Project in Web Application Development. Comprehensive platform deployed online.",
-    "repo2_desc": "Interactive and visual application for error monitoring (Failure Mapping).",
-    "repo3_desc": "API status and telemetry service for real-time incident reporting.",
-    "repo4_desc": "Time management, appointments, and structured organization system.",
-    "repo5_desc": "Visual components and creative identities with instant deployment."
+    "repo1_desc": "Final Degree Project. A complete web application built from scratch and deployed in production.",
+    "repo2_desc": "Visual and interactive application designed to intuitively locate and manage errors.",
+    "repo3_desc": "Platform to monitor service and API status, providing real-time incident reporting.",
+    "repo4_desc": "Organization and productivity tool focused on appointment management and time tracking.",
+    "repo5_desc": "Collection of creative components and visual designs ready to be implemented."
   },
   "contact": {
     "subtitle": "04 // Contact",
@@ -66,7 +66,7 @@
     "social": "Socials",
     "status": "ONLINE",
     "location_val": "Seville, Spain",
-    "desc": "Looking for new challenges where software architecture and premium design meet. Open to engineering positions and complex projects."
+    "desc": "Always open to new challenges where I can apply my technical knowledge and continue growing professionally. Looking for job opportunities in dynamic projects."
   },
   "footer": {
     "rights": "All rights reserved.",

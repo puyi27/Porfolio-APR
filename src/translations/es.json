@@ -11,7 +11,7 @@
     "title2": "de Software.",
     "download_cv": "Descargar CV",
     "scroll": "Scroll",
-    "subtitle": "Diseño y desarrollo de ecosistemas digitales de alto rendimiento. Especializado en arquitecturas Node.js y experiencias visuales inmersivas.",
+    "subtitle": "Diseño y desarrollo de aplicaciones web a medida. Especializado en crear experiencias digitales rápidas, seguras y visualmente atractivas con tecnologías modernas como Node.js.",
     "start": "Iniciar Sistema",
     "projects": "Ver Archivos"
   },
@@ -19,10 +19,10 @@
     "subtitle": "01 // Sobre Mí",
     "title1": "Lógica &",
     "title2": "Estructura.",
-    "bio1": "Estudiante disciplinado y adaptable de ",
+    "bio1": "Soy Técnico Superior en ",
     "bio_highlight": "Desarrollo de Aplicaciones Web",
-    "bio2": " con gran ambición de ampliar mi conjunto de habilidades profesionales en el ecosistema Full Stack.",
-    "bio3": "Soy una persona resiliente y comprometida. Complemento mi formación técnica con experiencia internacional real en Italia, colaborando en el desarrollo de módulos de telemetría y paneles analíticos industriales. Mi objetivo es aportar valor a través de código estructurado y trabajo en equipo.",
+    "bio2": ", con gran vocación por seguir aprendiendo y mejorando en el ecosistema Full Stack.",
+    "bio3": "Me considero una persona resolutiva y enfocada en el trabajo en equipo. Mi reciente experiencia internacional en Italia me ha permitido colaborar en proyectos de monitorización industrial, aportando soluciones prácticas en entornos reales. Mi objetivo es seguir aportando valor creando aplicaciones útiles y bien estructuradas.",
     "terminal": "Terminal // root@server"
   },
   "experience": {
@@ -36,11 +36,11 @@
     "job2_year": "Actualidad",
     "job2_title": "Desarrollo de Software / Prácticas",
     "job2_company": "FAE Technology (Bérgamo, Italia)",
-    "job2_desc": "Desarrollo de módulos de telemetría e integración de paneles analíticos para el monitoreo de infraestructura industrial. Trabajo en equipo internacional y adopción de metodologías ágiles en entornos críticos.",
+    "job2_desc": "Colaboración en el desarrollo de paneles de control y herramientas de monitorización para proyectos industriales. Experiencia trabajando en un equipo internacional bajo metodologías ágiles.",
     "job3_year": "2022 - 2024",
     "job3_title": "Bachillerato Tecnológico",
     "job3_company": "IES Hienipa (Alcalá de Guadaíra)",
-    "job3_desc": "Estudios de Bachillerato con especialización científico-tecnológica, aportando una base sólida en matemáticas y resolución lógica de problemas."
+    "job3_desc": "Formación en la rama científico-tecnológica, que me proporcionó una sólida base lógica y matemática, fundamental para la programación."
   },
   "projects": {
     "subtitle": "03 // Portfolio",
@@ -48,11 +48,11 @@
     "title2": "Destacados.",
     "source_code": "Código Fuente",
     "view_repo": "Ver Repositorio",
-    "repo1_desc": "TFG de Desarrollo de Aplicaciones Web. Plataforma integral desplegada online.",
-    "repo2_desc": "Aplicación interactiva y visual para monitorización de errores (Failure Mapping).",
-    "repo3_desc": "Servicio de estado y telemetría de APIs para reporte de incidencias en tiempo real.",
-    "repo4_desc": "Sistema de gestión de tiempos, citas y organización estructurada.",
-    "repo5_desc": "Componentes visuales e identidades creativas con despliegue instantáneo."
+    "repo1_desc": "Proyecto Final de Grado. Una aplicación web completa desarrollada desde cero y desplegada en producción.",
+    "repo2_desc": "Aplicación visual e interactiva diseñada para localizar y gestionar errores de forma intuitiva.",
+    "repo3_desc": "Plataforma para monitorizar el estado de servicios y APIs, reportando incidencias en tiempo real.",
+    "repo4_desc": "Herramienta de organización y productividad orientada a la gestión de citas y control del tiempo.",
+    "repo5_desc": "Colección de componentes creativos y diseños visuales listos para ser implementados."
   },
   "contact": {
     "subtitle": "04 // Contacto",
@@ -66,7 +66,7 @@
     "social": "Redes",
     "status": "ONLINE",
     "location_val": "Sevilla, España",
-    "desc": "Buscando nuevos desafíos donde la arquitectura de software y el diseño premium se encuentren. Abierto a posiciones de ingeniería y proyectos complejos."
+    "desc": "Siempre abierto a nuevos retos donde pueda aportar mis conocimientos técnicos y seguir creciendo profesionalmente. Busco oportunidades laborales en proyectos dinámicos."
   },
   "footer": {
     "rights": "Todos los derechos reservados.",
