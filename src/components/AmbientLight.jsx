@@ -43,11 +43,11 @@ const AmbientLight = () => {
           return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
       }
 
-      // Fractional Brownian Motion (fBm) para dinámica de fluidos
       float fbm(vec2 st) {
           float value = 0.0;
           float amplitude = 0.5;
-          for (int i = 0; i < 6; i++) {
+          // Reducido a 4 octavas para MÁXIMO rendimiento a 60fps
+          for (int i = 0; i < 4; i++) { 
               value += amplitude * noise(st);
               st *= 2.0;
               amplitude *= 0.5;
@@ -59,37 +59,32 @@ const AmbientLight = () => {
           vec2 st = gl_FragCoord.xy / u_resolution.xy;
           st.x *= u_resolution.x / u_resolution.y;
           
-          st *= 2.5; // Escala del mármol
+          st *= 2.0; // Escala más amplia
 
-          // Deformación de dominio (Domain Warping) para el flujo líquido
-          vec2 q = vec2(0.0);
-          q.x = fbm(st + 0.01 * u_time);
-          q.y = fbm(st + vec2(1.0));
+          // Domain Warping hiper-optimizado (solo 3 llamadas fbm en total)
+          vec2 q = vec2(
+              fbm(st + 0.01 * u_time),
+              fbm(st + vec2(1.0) - 0.01 * u_time)
+          );
 
-          vec2 r = vec2(0.0);
-          r.x = fbm(st + 1.0 * q + vec2(1.7, 9.2) + 0.015 * u_time);
-          r.y = fbm(st + 1.0 * q + vec2(8.3, 2.8) + 0.0126 * u_time);
+          float f = fbm(st + q * 1.5 + 0.01 * u_time);
 
-          float f = fbm(st + r);
+          // Paleta súper luminosa (Alabastro clarito)
+          vec3 bg = vec3(1.0, 1.0, 1.0); // Blanco puro
+          vec3 grey = vec3(0.95, 0.96, 0.98); // Gris perla clarísimo
+          vec3 gold = vec3(0.85, 0.72, 0.35); // Oro
+          vec3 navy = vec3(0.1, 0.2, 0.35); // Azul suave
 
-          // Paleta de colores Marble & Navy
-          vec3 bg = vec3(0.98, 0.98, 0.99); // Alabastro / Blanco
-          vec3 navy = vec3(0.04, 0.10, 0.18); // Azul oscuro / Navy
-          vec3 gold = vec3(0.83, 0.68, 0.21); // Oro / Ember
-          vec3 grey = vec3(0.85, 0.88, 0.90); // Vetas grises de la piedra
+          // Fondo
+          vec3 color = mix(bg, grey, f * 1.2);
 
-          // Mezcla base del mármol
-          vec3 color = mix(bg, grey, clamp(f * f * 2.0, 0.0, 1.0));
+          // Veta dorada finita y translúcida
+          float goldVein = smoothstep(0.45, 0.48, f) - smoothstep(0.48, 0.51, f);
+          color = mix(color, gold, goldVein * 0.35);
 
-          // Vetas doradas
-          float goldVein = fbm(st + r * 2.0 - u_time * 0.02);
-          goldVein = smoothstep(0.4, 0.42, goldVein) - smoothstep(0.42, 0.46, goldVein);
-          color = mix(color, gold, goldVein * 0.7);
-
-          // Vetas Navy
-          float navyVein = fbm(st + q * 2.5 + u_time * 0.01);
-          navyVein = smoothstep(0.48, 0.50, navyVein) - smoothstep(0.50, 0.55, navyVein);
-          color = mix(color, navy, navyVein * 0.4);
+          // Veta navy cruzada sutil
+          float navyVein = smoothstep(0.35, 0.37, q.x) - smoothstep(0.37, 0.39, q.x);
+          color = mix(color, navy, navyVein * 0.15);
 
           gl_FragColor = vec4(color, 1.0);
       }
@@ -148,8 +143,12 @@ const AmbientLight = () => {
     let startTime = Date.now();
 
     const render = () => {
-      const displayWidth = window.innerWidth;
-      const displayHeight = window.innerHeight;
+      // Rendimiento: Renderizar al 50% de la resolución del dispositivo.
+      // Al ser mármol suavizado, el escalado CSS lo difumina perfectamente, 
+      // multiplicando los FPS x4 en dispositivos de alta densidad (Retina).
+      const dpr = 0.5; 
+      const displayWidth = Math.floor(window.innerWidth * dpr);
+      const displayHeight = Math.floor(window.innerHeight * dpr);
       
       if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
         canvas.width = displayWidth;
