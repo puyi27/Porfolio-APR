@@ -12,38 +12,37 @@ const AmbientLight = () => {
             100% { transform: translate(0px, 0px) scale(1); }
           }
           .animate-blob {
-            animation: blob 20s infinite alternate ease-in-out;
+            animation: blob 25s infinite alternate ease-in-out;
           }
           .animation-delay-2000 {
-            animation-delay: -5s;
+            animation-delay: -8s;
           }
           .animation-delay-4000 {
-            animation-delay: -10s;
+            animation-delay: -16s;
           }
         `}
       </style>
-      <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden bg-ink">
+      <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden bg-transparent">
         
-        {/* Capa de ruido (grain) para textura editorial premium */}
+        {/* Capa de textura sutil (Grano fotográfico para simular el papel/mármol) */}
         <div 
-          className="absolute inset-0 opacity-[0.06] z-20"
+          className="absolute inset-0 opacity-[0.3] z-20 mix-blend-multiply pointer-events-none"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
           }}
         ></div>
 
-        {/* Orbes de luz desenfocados (Efecto Aurora) */}
-        {/* Orbe 1: Ember/Oro sutil */}
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] min-w-[500px] min-h-[500px] rounded-full bg-[#d4af37] opacity-[0.05] blur-[120px] animate-blob"></div>
+        {/* Orbes de acuarela móviles (Light Mode Aurora) */}
         
-        {/* Orbe 2: Navy / Azul profundo */}
-        <div className="absolute top-[20%] right-[-10%] w-[45vw] h-[45vw] min-w-[400px] min-h-[400px] rounded-full bg-[#0a192f] opacity-[0.5] blur-[150px] animate-blob animation-delay-2000"></div>
+        {/* Orbe 1: Navy/Azul Profundo - muy diluido */}
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] min-w-[500px] min-h-[500px] rounded-full bg-[#0A192F] opacity-[0.06] blur-[120px] animate-blob"></div>
         
-        {/* Orbe 3: Gris pálido/Plateado */}
-        <div className="absolute bottom-[-10%] left-[10%] w-[60vw] h-[60vw] min-w-[600px] min-h-[600px] rounded-full bg-[#cbd5e1] opacity-[0.03] blur-[140px] animate-blob animation-delay-4000"></div>
+        {/* Orbe 2: Oro/Champagne */}
+        <div className="absolute top-[30%] right-[-10%] w-[45vw] h-[45vw] min-w-[400px] min-h-[400px] rounded-full bg-[#D4AF37] opacity-[0.07] blur-[130px] animate-blob animation-delay-2000"></div>
+        
+        {/* Orbe 3: Gris perla / Plata para dar textura de veteado marmóreo */}
+        <div className="absolute bottom-[-10%] left-[20%] w-[60vw] h-[60vw] min-w-[600px] min-h-[600px] rounded-full bg-[#94A3B8] opacity-[0.08] blur-[140px] animate-blob animation-delay-4000"></div>
 
-        {/* Viñeteado para integrar y no distraer */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#030712_100%)] opacity-80 z-10 pointer-events-none"></div>
       </div>
     </>
   );
