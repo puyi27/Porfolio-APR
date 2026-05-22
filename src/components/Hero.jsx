@@ -127,11 +127,15 @@ const Hero = () => {
               </MagneticButton>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif leading-[0.9] text-ash tracking-tighter relative z-30 flex flex-col">
+            {/* Título Principal con Fluid Typography (Blend Exclusion) 
+                Al usar text-white con exclusion sobre un fondo casi blanco, 
+                el texto se ve oscuro pero las vetas de mármol brillan a través de las letras.
+            */}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif leading-[0.9] text-white tracking-tighter relative z-30 flex flex-col mix-blend-exclusion">
               <span className="block overflow-hidden pb-4 pr-4 whitespace-nowrap">
                 <StaggeredText text={t('hero.title1')} delay={0.1} />
               </span>
-              <span className="block text-ash/50 italic overflow-hidden pb-4 pr-4 whitespace-nowrap">
+              <span className="block text-white/80 italic overflow-hidden pb-4 pr-4 whitespace-nowrap">
                 <StaggeredText text={t('hero.title2')} delay={0.3} />
               </span>
             </h1>
