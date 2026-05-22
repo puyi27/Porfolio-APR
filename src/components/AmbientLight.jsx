@@ -30,9 +30,9 @@ const AmbientLight = () => {
         {/* Imagen de fondo con la distorsión líquida (Marea) */}
         {/* Usamos el filtro SVG para deformar la imagen de mármol como si fuera líquido */}
         <div 
-          className="absolute inset-[-10%] w-[120%] h-[120%] animate-tide opacity-[0.85] mix-blend-multiply"
+          className="absolute inset-[-10%] w-[120%] h-[120%] animate-tide opacity-[0.85]"
           style={{
-            backgroundImage: `url("/marble-bg.jpg")`,
+            backgroundImage: `url("/marble-bg.jpg?v=2")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'url(#liquidTide)'
