@@ -118,7 +118,7 @@ const Hero = () => {
               <MagneticButton>
                 <a 
                   href="/cv.pdf" 
-                  download="CV_Angel_Postigo.pdf"
+                  download="ÁngelPostigoRodríguez_CV.pdf"
                   className="inline-flex items-center gap-4 border border-ember/30 px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] text-ash hover:bg-ember hover:text-ink transition-colors duration-500 interactive group"
                 >
                   {t('hero.download_cv')} <FiDownload className="group-hover:-translate-y-1 transition-transform duration-300" />
