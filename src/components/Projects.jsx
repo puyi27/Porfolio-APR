@@ -55,7 +55,7 @@ const Projects = () => {
       description: t('projects.repo6_desc'),
       language: "React",
       github: "https://github.com/puyi27", 
-      demo: "https://github.com/puyi27",
+      demo: "https://alcal-se-mueve.vercel.app",
       image: "/alcala.png"
     },
     {
@@ -63,7 +63,7 @@ const Projects = () => {
       description: t('projects.repo1_desc'),
       language: "JavaScript",
       github: "https://github.com/puyi27/quavemind_final",
-      demo: "https://github.com/puyi27/quavemind_final",
+      demo: "https://quavemind.vercel.app",
       image: "/quavemind.png?v=2"
     },
     {
@@ -87,7 +87,7 @@ const Projects = () => {
       description: t('projects.repo5_desc'),
       language: "JavaScript",
       github: "https://github.com/puyi27/CAT-LOGO",
-      demo: "https://github.com/puyi27/CAT-LOGO",
+      demo: "https://catalogo-alcala-web.vercel.app",
       image: "/agency.png?v=2"
     }
   ];
