@@ -54,14 +54,16 @@ const Projects = () => {
       name: "Alcalá se Mueve",
       description: t('projects.repo6_desc'),
       language: "React",
-      github: "https://github.com/puyi27", // Cambiar por la URL real si existe un repo específico
-      image: "/alcala.png" // Asume que se subirá una imagen llamada alcala.png
+      github: "https://github.com/puyi27", 
+      demo: "https://github.com/puyi27",
+      image: "/alcala.png"
     },
     {
       name: "quavemind_final",
       description: t('projects.repo1_desc'),
       language: "JavaScript",
       github: "https://github.com/puyi27/quavemind_final",
+      demo: "https://github.com/puyi27/quavemind_final",
       image: "/quavemind.png?v=2"
     },
     {
@@ -69,6 +71,7 @@ const Projects = () => {
       description: t('projects.repo3_desc'),
       language: "TypeScript",
       github: "https://github.com/puyi27/StatusPage",
+      demo: "https://github.com/puyi27/StatusPage",
       image: "/statuspage.png?v=2"
     },
     {
@@ -76,6 +79,7 @@ const Projects = () => {
       description: t('projects.repo4_desc'),
       language: "TypeScript",
       github: "https://github.com/puyi27/CALENDAR",
+      demo: "https://github.com/puyi27/CALENDAR",
       image: "/calendar.png?v=2"
     },
     {
@@ -83,6 +87,7 @@ const Projects = () => {
       description: t('projects.repo5_desc'),
       language: "JavaScript",
       github: "https://github.com/puyi27/CAT-LOGO",
+      demo: "https://github.com/puyi27/CAT-LOGO",
       image: "/agency.png?v=2"
     }
   ];
@@ -219,10 +224,7 @@ const Projects = () => {
           {CAROUSEL_ITEMS.map((repo, i) => (
             <div key={i} className="w-[85vw] md:w-[400px] lg:w-[450px] flex-shrink-0 mx-4">
               <TiltCard>
-                <a 
-                  href={repo.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div 
                   className="project-card block w-full h-[450px] bg-ink-light border border-ember/20 flex flex-col relative hover:border-ember/60 shadow-lg hover:shadow-[0_10px_40px_rgba(212,175,55,0.15)] hover:-translate-y-2 transition-all duration-700 rounded-xl overflow-hidden"
                 >
                   
@@ -249,16 +251,33 @@ const Projects = () => {
                       {repo.description}
                     </p>
 
-                    <div className="mt-auto pt-6 flex flex-wrap gap-3">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash bg-ink-light px-3 py-1.5 border border-ember/20 rounded-sm shadow-sm pointer-events-none">
-                        {repo.language}
-                      </span>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash/50 px-3 py-1.5 rounded-sm flex items-center pointer-events-none">
-                        {t('projects.view_repo')}
-                      </span>
+                    <div className="mt-auto pt-4 flex flex-col gap-3 z-20">
+                      <div className="flex flex-wrap gap-3 pointer-events-none">
+                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ash bg-ink-light px-3 py-1.5 border border-ember/20 rounded-sm shadow-sm">
+                          {repo.language}
+                        </span>
+                      </div>
+                      <div className="flex gap-2 mt-1">
+                        <a 
+                          href={repo.github} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1 flex justify-center items-center gap-2 text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ash border border-ash/20 hover:border-ember hover:text-ember px-2 py-2 rounded-sm transition-colors duration-300 interactive z-30"
+                        >
+                          {t('projects.view_repo')}
+                        </a>
+                        <a 
+                          href={repo.demo} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1 flex justify-center items-center gap-2 text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ink bg-ember hover:bg-ember/80 px-2 py-2 rounded-sm transition-colors duration-300 interactive z-30 shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                        >
+                          {t('projects.view_demo')} <FiArrowUpRight size={12} />
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </TiltCard>
             </div>
           ))}
