@@ -79,7 +79,7 @@ const Projects = () => {
       description: t('projects.repo4_desc'),
       language: "TypeScript",
       github: "https://github.com/puyi27/CALENDAR",
-      demo: "https://github.com/puyi27/CALENDAR",
+      demo: "https://presencelink.vercel.app",
       image: "/calendar.png?v=2"
     },
     {
