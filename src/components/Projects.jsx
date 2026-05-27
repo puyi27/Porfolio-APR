@@ -51,6 +51,13 @@ const Projects = () => {
 
   const REPOS = [
     {
+      name: "Alcalá se Mueve",
+      description: t('projects.repo6_desc'),
+      language: "React",
+      github: "https://github.com/puyi27", // Cambiar por la URL real si existe un repo específico
+      image: "/alcala.png" // Asume que se subirá una imagen llamada alcala.png
+    },
+    {
       name: "quavemind_final",
       description: t('projects.repo1_desc'),
       language: "JavaScript",
