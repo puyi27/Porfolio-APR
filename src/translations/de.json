@@ -48,11 +48,13 @@
     "title2": "Systeme.",
     "source_code": "Quellcode",
     "view_repo": "Repository Ansehen",
+    "view_demo": "Demo Ansehen",
     "repo1_desc": "Abschlussprojekt in der Webanwendungsentwicklung. Umfassende Online-Plattform.",
     "repo2_desc": "Interaktive und visuelle Anwendung zur Fehlerüberwachung (Failure Mapping).",
     "repo3_desc": "API-Status- und Telemetriedienst für Echtzeit-Vorfallmeldungen.",
     "repo4_desc": "Zeitmanagement, Termine und strukturiertes Organisationssystem.",
-    "repo5_desc": "Visuelle Komponenten und kreative Identitäten mit sofortiger Bereitstellung."
+    "repo5_desc": "Visuelle Komponenten und kreative Identitäten mit sofortiger Bereitstellung.",
+    "repo6_desc": "Interaktive digitale Plattform für das lokale Projekt 'Alcalá se Mueve'."
   },
   "contact": {
     "subtitle": "04 // Kontakt",
