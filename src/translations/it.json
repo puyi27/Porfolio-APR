@@ -48,11 +48,13 @@
     "title2": "Scalabili.",
     "source_code": "Codice Sorgente",
     "view_repo": "Vedi Repository",
+    "view_demo": "Vedi Demo",
     "repo1_desc": "Progetto Finale in Sviluppo di Applicazioni Web. Piattaforma completa distribuita online.",
     "repo2_desc": "Applicazione interattiva e visiva per il monitoraggio degli errori (Failure Mapping).",
     "repo3_desc": "Stato delle API e servizio di telemetria per la segnalazione di incidenti in tempo reale.",
     "repo4_desc": "Sistema di gestione del tempo, appuntamenti e organizzazione strutturata.",
-    "repo5_desc": "Componenti visivi e identità creative con distribuzione istantanea."
+    "repo5_desc": "Componenti visivi e identità creative con distribuzione istantanea.",
+    "repo6_desc": "Piattaforma digitale interattiva per il progetto locale 'Alcalá se Mueve'."
   },
   "contact": {
     "subtitle": "04 // Contatto",

@@ -262,7 +262,7 @@ const Projects = () => {
                           href={repo.github} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex-1 flex justify-center items-center gap-2 text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ash border border-ash/20 hover:border-ember hover:text-ember px-2 py-2 rounded-sm transition-colors duration-300 interactive z-30"
+                          className="flex-1 flex justify-center items-center gap-2 text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ash border border-ash/20 hover:bg-ash/5 hover:border-ash/40 px-2 py-2 rounded-sm transition-all duration-300 interactive z-30"
                         >
                           {t('projects.view_repo')}
                         </a>
@@ -270,7 +270,7 @@ const Projects = () => {
                           href={repo.demo} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex-1 flex justify-center items-center gap-2 text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ink bg-ember hover:bg-ember/80 px-2 py-2 rounded-sm transition-colors duration-300 interactive z-30 shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                          className="flex-1 flex justify-center items-center gap-2 text-center font-mono text-[9px] uppercase tracking-[0.2em] text-ink bg-ash hover:bg-ash/90 px-2 py-2 rounded-sm transition-all duration-300 interactive z-30 shadow-[0_0_15px_rgba(22,58,110,0.3)]"
                         >
                           {t('projects.view_demo')} <FiArrowUpRight size={12} />
                         </a>
