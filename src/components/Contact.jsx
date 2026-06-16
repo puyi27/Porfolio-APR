@@ -127,7 +127,7 @@ const Contact = () => {
                 </a>
               </MagneticButton>
               <MagneticButton className="w-fit">
-                <a href="https://linkedin.com/in/angel-postigo-rodriguez" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-ash hover:text-ember transition-colors interactive">
+                <a href="https://www.linkedin.com/in/angel-posrod/" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-ash hover:text-ember transition-colors interactive">
                   LinkedIn Profile <FiArrowRight />
                 </a>
               </MagneticButton>
