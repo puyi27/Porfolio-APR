@@ -89,6 +89,14 @@ const Projects = () => {
       github: "https://github.com/puyi27/CAT-LOGO",
       demo: "https://catalogo-alcala-web.vercel.app",
       image: "/agency.png?v=2"
+    },
+    {
+      name: "Madrinas Deco",
+      description: t('projects.repo7_desc'),
+      language: "TypeScript",
+      github: "https://github.com/puyi27/MADRINAS",
+      demo: "https://madrinas-deco.vercel.app",
+      image: ""
     }
   ];
 
