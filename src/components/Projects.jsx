@@ -96,7 +96,7 @@ const Projects = () => {
       language: "TypeScript",
       github: "https://github.com/puyi27/Madrinas-Deco",
       demo: "https://madrinas-deco.vercel.app",
-      image: ""
+      image: "/madrinas.png"
     }
   ];
 
